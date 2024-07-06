@@ -1,17 +1,29 @@
 
+import image from '../assets/car1.jpeg'
 
 const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="text-center">
-        <h1 className="text-5xl font-bold mb-4">Drive Your Dream Car Today</h1>
-        <p className="text-lg mb-8">Affordable, Convenient, and Reliable Car Rentals</p>
-        <div>
-          <button className="btn btn-primary mr-4">Browse Cars</button>
-          <button className="btn btn-secondary">Book Now</button>
-        </div>
+      <div
+  className="hero m-1 bg-contain bg-no-repeat min-h-screen"
+  style={{
+    backgroundImage: `url(${image})`,
+  }}>
+  <div className="hero-overlay bg-opacity-60"></div>
+  <div className="hero-content text-neutral-content text-center">
+    <div className="max-w-md">
+      <h1 className="mb-5 text-5xl font-bold">Drive Your Dream Car Today!</h1>
+      <p className="mb-5">
+      Explore our wide range of luxury and economy vehicles for rent. Convenient, affordable, and tailored for your needs.
+      </p>
+      <div className='flex gap-3'>
+        <button className="btn btn-secondary">Explore more cars </button>
+        <button className="btn btn-primary">Reserve Your Ride Today!</button>
       </div>
+    </div>
+  </div>
+</div>
 
       {/* Featured Vehicles Section */}
       <div className="featured-vehicles py-12">
