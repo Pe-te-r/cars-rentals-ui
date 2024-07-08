@@ -12,7 +12,7 @@ const Navbar = ({ openContact, openAuthModal, setIsLogin }: any) => {
   };
 
   return (
-    <nav className="bg-gray-900 p-4">
+    <nav className="bg-blue-900 p-4">
       <div className="container mx-auto flex items-center justify-between">
         <div className="text-white text-xl font-bold mb-1">
           Phantom

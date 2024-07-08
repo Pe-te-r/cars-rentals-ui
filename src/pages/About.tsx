@@ -1,7 +1,7 @@
 
 const teamMembers = [
     {
-      name: "John Doe",
+      name: "Peter Phantom",
       image: "https://avatars.githubusercontent.com/u/106557118?v=4",
       level: "Founder"
     },
