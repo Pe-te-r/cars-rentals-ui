@@ -1,12 +1,12 @@
 
-import image from '../assets/car1.jpeg'
+import image from '../assets/image6.jpg'
 
 const Home = () => {
   return (
     <div>
       {/* Hero Section */}
       <div
-  className="hero m-1 bg-contain bg-no-repeat min-h-screen"
+  className="hero  bg-cover bg-no-repeat min-h-screen"
   style={{
     backgroundImage: `url(${image})`,
   }}>

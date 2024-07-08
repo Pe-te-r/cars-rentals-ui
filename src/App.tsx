@@ -3,56 +3,43 @@ import Home from './pages/Home';
 import Service from './pages/Service';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer';
-
-
-const routes=([
-  {
-    path: '/',
-    element:<Home/> ,
-  },
-  {
-    path: "service",
-    element: <Service/>
-  },
-  {
-    path: "about",
-    element: <About/>
-  },
-  {
-    path: "contact",
-    element: <Contact/> ,
-  },
-  {
-    path:'login',
-    element: <Login />,
-  },
-  {
-    path:'register',
-    element: <Register/>,
-  },
-  {
-    path: "*",
-    element: <h1>Page Not Found</h1>
-  }
-
-]);
+import { useState } from 'react';
+import AuthController from './components/authComponent';
 
 
 function App() {
+  // contact page modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+   // Auth modal state
+   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+   const [isLogin, setIsLogin] = useState(true); 
+ 
+   const openAuthModal = (value: boolean) => {
+     setIsLogin(value);
+     setIsAuthModalOpen(true);
+   };
+ 
+   const closeAuthModal = () => setIsAuthModalOpen(false);
+
+
 
   return (
     <BrowserRouter>  
       <div className="mainContainer bg-gray-900" style={{ minHeight: '100vh' }}>
-        <Navbar/>
+        <Navbar openContact={openModal} setIsLogin={setIsLogin} openAuthModal={openAuthModal} />
         <Routes>
-            {routes.map((route, index) =>{
-              return <Route key={index} path={route.path} element={route.element} />
-            })}
+            <Route path='/' element={<Home/>} />
+            <Route path='/about' element={<About/>} />
+            <Route path='/service' element={<Service/>} />
+           
         </Routes>
+        <Contact isOpen={isModalOpen} closeModal={closeModal} />
+        <AuthController isOpen={isAuthModalOpen} closeModal={closeAuthModal} isLogin={isLogin} />
         <Footer/>
       </div>
     </BrowserRouter>
