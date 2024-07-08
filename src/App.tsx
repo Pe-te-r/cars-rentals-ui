@@ -8,8 +8,8 @@ import Footer from './components/Footer';
 import { useState } from 'react';
 import AuthController from './components/authComponent';
 import Error from './pages/Error';
-import DashBoard from './pages/dashboard/DashBoard';
-import Users from './pages/dashboard/Users';
+import Content from './pages/dashboard/Content';
+import Dashboard from './pages/dashboard/DashBoard';
 
 
 function App() {
@@ -39,8 +39,8 @@ function App() {
             <Route path='/' element={<Home/>} />
             <Route path='/about' element={<About/>} />
             <Route path='/service' element={<Service/>} />
-            <Route path='/dashboard' element={<DashBoard/>} />
-            <Route path='/dashboard/users' element={<Users/>} />
+            <Route path='/dashboard' element={<Dashboard/>} />
+            <Route path='/dashboard/users' element={<Content/>} />
             <Route path='*' element={<Error/>} />
   
         </Routes>
