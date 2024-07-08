@@ -7,6 +7,7 @@ import Navbar from './components/NavBar';
 import Footer from './components/Footer';
 import { useState } from 'react';
 import AuthController from './components/authComponent';
+import Error from './pages/Error';
 
 
 function App() {
@@ -36,7 +37,8 @@ function App() {
             <Route path='/' element={<Home/>} />
             <Route path='/about' element={<About/>} />
             <Route path='/service' element={<Service/>} />
-           
+            <Route path='*' element={<Error/>} />
+  
         </Routes>
         <Contact isOpen={isModalOpen} closeModal={closeModal} />
         <AuthController isOpen={isAuthModalOpen} closeModal={closeAuthModal} isLogin={isLogin} />
