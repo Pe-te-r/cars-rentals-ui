@@ -1,4 +1,4 @@
-import {  BrowserRouter,  Route,  Routes } from 'react-router-dom';
+import {  BrowserRouter,  Route,  RouterProvider,  Routes, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import Service from './pages/Service';
 import About from './pages/About';
@@ -9,7 +9,7 @@ import Navbar from './components/NavBar';
 import Footer from './components/Footer';
 
 
-const routes=([
+const routes=createBrowserRouter([
   {
     path: '/',
     element:<Home/> ,
@@ -45,17 +45,7 @@ const routes=([
 function App() {
 
   return (
-    <BrowserRouter>  
-      <div className="mainContainer bg-gray-900" style={{ minHeight: '100vh' }}>
-        <Navbar/>
-        <Routes>
-            {routes.map((route, index) =>{
-              return <Route key={index} path={route.path} element={route.element} />
-            })}
-        </Routes>
-        <Footer/>
-      </div>
-    </BrowserRouter>
+      <RouterProvider router={routes} />
   )
 }
 
