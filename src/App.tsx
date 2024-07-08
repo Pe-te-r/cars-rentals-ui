@@ -3,13 +3,11 @@ import Home from './pages/Home';
 import Service from './pages/Service';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import Login from './pages/Login';
-import Register from './pages/Register';
 import Navbar from './components/NavBar';
 import Footer from './components/Footer';
 
 
-const routes=createBrowserRouter([
+const routes=([
   {
     path: '/',
     element:<Home/> ,
@@ -43,9 +41,36 @@ const routes=createBrowserRouter([
 
 
 function App() {
+  // contact page modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+   // Auth modal state
+   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+   const [isLogin, setIsLogin] = useState(true); 
+ 
+   const openAuthModal = (value: boolean) => {
+     setIsLogin(value);
+     setIsAuthModalOpen(true);
+   };
+ 
+   const closeAuthModal = () => setIsAuthModalOpen(false);
+
+
 
   return (
-      <RouterProvider router={routes} />
+    <BrowserRouter>  
+      <div className="mainContainer bg-gray-900" style={{ minHeight: '100vh' }}>
+        <Navbar/>
+        <Routes>
+            {routes.map((route, index) =>{
+              return <Route key={index} path={route.path} element={route.element} />
+            })}
+        </Routes>
+        <Footer/>
+      </div>
+    </BrowserRouter>
   )
 }
 

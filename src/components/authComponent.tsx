@@ -1,76 +1,92 @@
-import  { useState } from 'react';
-import { Link } from 'react-router-dom';
-
-interface propType {
-  isLoginValue: boolean;
-}
-
-const AuthController =({isLoginValue}: propType)=>{
-    const [isLogin, setIsLogin] = useState(isLoginValue); 
-
-  // Function to toggle between login and register views
-  const toggleForm = () => {
-    setIsLogin(prevState => !prevState);
-  };
+const AuthController = ({ isOpen, closeModal, isLogin }: any) => {
+  if (!isOpen) return null;
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-900">
-      <div className="bg-gray-800 p-8 rounded shadow-lg  w-1/2">
-        <h2 className="text-2xl font-bold mb-4">{isLogin ? 'Login' : 'Register'}</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="bg-gray-800 p-8 rounded shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold mb-4 text-white text-center">{isLogin ? 'Login' : 'Register'}</h2>
 
         {isLogin ? (
           // Login Form
           <form className="space-y-4">
             <div>
-              <label className="block mb-1">Email</label>
-              <input type="email" className="w-full px-3 py-2  border rounded" placeholder="Enter your email" />
+              <label className="block mb-1 text-white">Email</label>
+              <input
+                type="email"
+                className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-700 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                placeholder="Enter your email"
+              />
             </div>
             <div>
-              <label className="block mb-1">Password</label>
-              <input type="password" className="w-full px-3 py-2 border rounded" placeholder="Enter your password" />
+              <label className="block mb-1 text-white">Password</label>
+              <input
+                type="password"
+                className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-700 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                placeholder="Enter your password"
+              />
             </div>
-            <button className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Login</button>
+            <button
+              className="w-full bg-yellow-500 text-gray-900 py-2 rounded hover:bg-yellow-600 focus:outline-none"
+            >
+              Login
+            </button>
           </form>
         ) : (
           // Register Form
           <form className="space-y-4">
             <div>
-              <label className="block mb-1">Name</label>
-              <input type="text" className="w-full px-3 py-2 border rounded" placeholder="Enter your name" />
+              <label className="block mb-1 text-white">Name</label>
+              <input
+                type="text"
+                className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-700 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                placeholder="Enter your name"
+              />
             </div>
             <div>
-              <label className="block mb-1">Email</label>
-              <input type="email" className="w-full px-3 py-2 border rounded" placeholder="Enter your email" />
+              <label className="block mb-1 text-white">Email</label>
+              <input
+                type="email"
+                className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-700 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                placeholder="Enter your email"
+              />
             </div>
             <div>
-              <label className="block mb-1">Password</label>
-              <input type="password" className="w-full px-3 py-2 border rounded" placeholder="Enter your password" />
+              <label className="block mb-1 text-white">Password</label>
+              <input
+                type="password"
+                className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-700 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+                placeholder="Enter your password"
+              />
             </div>
             <div>
-              <label className="block mb-1">Role</label>
-              <select className="w-full px-3 py-2 border rounded">
+              <label className="block mb-1 text-white">Role</label>
+              <select
+                className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-700 text-white focus:outline-none focus:ring-yellow-500 focus:border-yellow-500"
+              >
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
               </select>
             </div>
-            <button className="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600">Register</button>
+            <button
+              className="w-full bg-yellow-500 text-gray-900 py-2 rounded hover:bg-yellow-600 focus:outline-none"
+            >
+              Register
+            </button>
           </form>
         )}
 
         {/* Toggle button */}
         <div className="mt-4 text-center">
-          <Link to={isLogin? ('/register'): ('/login')}>
           <button
-            onClick={toggleForm}
-            className="text-sm text-blue-500 hover:text-blue-700 focus:outline-none"
-            >
-            {isLogin ? 'Create an account' : 'Already have an account? Login'}
+            onClick={closeModal}
+            className="text-sm text-yellow-500 hover:text-yellow-600 focus:outline-none"
+          >
+            Close
           </button>
-          </Link>
         </div>
       </div>
     </div>
   );
 }
 
-export default AuthController
+export default AuthController;
