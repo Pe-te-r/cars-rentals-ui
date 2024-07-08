@@ -1,4 +1,3 @@
-import SideNav from "./SideNav"
 
 const Content = () => {
   return (
