@@ -5,10 +5,10 @@ import { useRef, useState } from "react"
 
 const Register = () => {
     const {closeAuthModal,setResponseToast,openAuthModal}= useAuth()
-    const [name,setName]=useState('phantom')
-    const [email, setEmail]=useState('phantom8526@duck.com')
-    const [password, setPassword]=useState('12345')
-    const [contact_phone, setPhone]=useState('0748200233')
+    const [name,setName]=useState('')
+    const [email, setEmail]=useState('')
+    const [password, setPassword]=useState('')
+    const [contact_phone, setPhone]=useState('')
     const selectRef = useRef<HTMLSelectElement>(null);
 
 

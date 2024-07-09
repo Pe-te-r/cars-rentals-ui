@@ -2,12 +2,11 @@ import {  useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useLoginMutation } from "../../features/login_slice";
 import InputDiv from "../../components/InputDiv";
-// import { ToastResponseType } from "../../types/types";
 
 const Login = () => {
     const [loginUser, {isLoading}] = useLoginMutation();
-    const [email, setEmail] = useState('mburupeter@duck.com');
-    const [password, setPassword] = useState('12345');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const { closeAuthModal,setResponseToast } = useAuth();
     const handleLogin=async(e: React.FormEvent) => {
         e.preventDefault();
@@ -28,7 +27,7 @@ const Login = () => {
             <InputDiv setData={setEmail} value={email} type='email' placeholder='Enter you email' label='Email'/>
             <InputDiv setData={setPassword} value={password} type='password' placeholder='Enter you password' label='Password'/>
             <button type='submit' className="w-full bg-yellow-500 text-gray-900 py-2 rounded hover:bg-yellow-600 focus:outline-none">
-              {isLoading ? <span className="loading loading-infinity loading-xs"></span>: "login"}
+              {isLoading ? <span className="loading loading-infinity loading-md"></span>: "login"}
             </button>
           </form>
           </>
