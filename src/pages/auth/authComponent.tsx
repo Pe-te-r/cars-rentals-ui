@@ -17,7 +17,7 @@ const AuthController = () => {
  
   if (!isAuthModalOpen) return null;
 
-  return (
+  return (<>
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-gray-800 relative p-8 rounded shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold mb-4 text-white text-center">{isLogin ? 'Login' : 'Register'}</h2>
@@ -33,7 +33,6 @@ const AuthController = () => {
           <Register/>
         )}
 
-          <Toast response={responseToast} clearResponse={clearResponse}/>
         {/* Toggle button */}
         <div className="mt-4  text-center p-2">
           <button
@@ -60,6 +59,8 @@ const AuthController = () => {
         </div>
       </div>
     </div>
+<Toast response={responseToast} clearResponse={clearResponse}/>
+  </>
   );
 };
 
