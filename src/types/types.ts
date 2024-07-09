@@ -44,6 +44,7 @@ export interface Credentials {
     name: string;
     email: string;
     password: string 
+    contact_phone: string;
     role:string | null;
     // full_name: string;
     // contact_phone: string;
@@ -51,11 +52,20 @@ export interface Credentials {
   }
   
   export interface LoginResponse {
-    token: string;
+    id:number;
+    name: string;
+    email: string;
     role: string;
+    contact_phone: string;
+    token: string;
   }
   
   export interface RegisterResponse {
-    token: string;
-    role: string;
+    username: string;
+    error?: string;
+  }
+
+  export interface ToastResponseType {
+    message: string;
+    type: 'error' |'success';
   }
