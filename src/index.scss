@@ -7,3 +7,33 @@
 .login-register{
     background-color: #eab308;
 }
+.sideNav{
+    z-index: 0;
+}
+.dashboardDiv{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Additional styles for SideNav */
+
+  .side-nav::-webkit-scrollbar {
+    width: 8px; /* Customize scrollbar width if needed */
+  }
+  
+  .side-nav::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2); /* Scrollbar thumb color */
+    border-radius: 4px; /* Rounded corners for scrollbar thumb */
+  }
+  
+  .side-nav a {
+    color: inherit; /* Inherit text color */
+    text-decoration: none; /* Remove default underline */
+  }
+  
+  .side-nav a:hover {
+    background-color: #fcd34d; /* Yellow hover background */
+  }
+  
+  /* Adjust other styles as per your design requirements */
+  

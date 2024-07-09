@@ -66,7 +66,20 @@ const teamMembers = [
         making your journey exceptional.
       </p>
 
+    {/* Testimonials Section */}
+      <div className="testimonials py-12 bg-gray-100">
+        <h2 className="text-3xl font-bold text-center mb-8">Customer Testimonials</h2>
+        <div className="flex justify-around">
+          //Example Testimonial
+          <div className="testimonial text-center">
+            <p className="mb-4">"Great service and excellent cars! Highly recommend."</p>
+            <p className="font-semibold">- Jane Doe</p>
+          </div>
+          
+          //</div>Repeat for more testimonials
+        </div>
     </div>
+
     <Footer/>
   </>
   );
