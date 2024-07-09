@@ -1,8 +1,24 @@
+import React, { useState } from 'react';
 import InputDiv from '../components/InputDiv';
 import { useAuth } from '../context/authContext';
+import { useLoginMutation } from '../features/login_slice';
 
 const AuthController = () => {
   const { isAuthModalOpen, closeAuthModal, isLogin } = useAuth();
+  const [email, setEmail] = useState('john');
+  const [password, setPassword] = useState('');
+  const [loginUser] = useLoginMutation();
+
+  const handleLogin=async(e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response =await loginUser({ email, password }).unwrap();
+      console.log(response)
+      closeAuthModal();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   if (!isAuthModalOpen) return null;
 
@@ -13,9 +29,9 @@ const AuthController = () => {
 
         {isLogin ? (
           // Login Form
-          <form className="space-y-4">
-            <InputDiv type='email' placeholder='Enter you email' label='Email'/>
-            <InputDiv type='password' placeholder='Enter you password' label='Password'/>
+          <form className="space-y-4" onSubmit={handleLogin}>
+            <InputDiv setData={setEmail} value={email} type='email' placeholder='Enter you email' label='Email'/>
+            <InputDiv setData={setPassword} value={password} type='password' placeholder='Enter you password' label='Password'/>
             <button className="w-full bg-yellow-500 text-gray-900 py-2 rounded hover:bg-yellow-600 focus:outline-none">
               Login
             </button>
@@ -23,9 +39,9 @@ const AuthController = () => {
         ) : (
           // Register Form
           <form className="space-y-4">
-            <InputDiv type='text' placeholder='Enter your name' label='Name'/>
-            <InputDiv type='email' placeholder='Enter your email' label='Email'/>
-            <InputDiv type='password' placeholder='Enter your password' label='Password'/>
+            {/* <InputDiv type='text' placeholder='Enter your name' label='Name'/> */}
+            {/* <InputDiv type='email' placeholder='Enter your email' label='Email'/> */}
+            {/* <InputDiv type='password' placeholder='Enter your password' label='Password'/> */}
 
             <div>
               <label className="block mb-1 text-white">Role</label>
