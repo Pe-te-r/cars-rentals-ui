@@ -1,3 +1,5 @@
+import Footer from "../components/Footer";
+import Navbar from "../components/NavBar";
 
 const teamMembers = [
     {
@@ -30,8 +32,9 @@ const teamMembers = [
     </div>
   );
   
-  // Usage of TeamCards component
   const About = () => (
+    <>
+      <Navbar/>
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold text-center mb-8">About Us</h1>
       <h1 className="text-3xl font-bold mb-4">About Our Car Rental Service</h1>
@@ -64,6 +67,8 @@ const teamMembers = [
       </p>
 
     </div>
+    <Footer/>
+  </>
   );
   
   export default About;

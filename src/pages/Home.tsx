@@ -1,15 +1,14 @@
 
 import image from '../assets/image6.jpg'
+import Footer from '../components/Footer';
+import Navbar from '../components/NavBar';
 
 const Home = () => {
   return (
+    <>
     <div>
-      {/* Hero Section */}
-      <div
-  className="hero  bg-cover bg-no-repeat min-h-screen"
-  style={{
-    backgroundImage: `url(${image})`,
-  }}>
+      <Navbar/>
+    <div className="hero  bg-cover bg-no-repeat min-h-screen" style={{backgroundImage: `url(${image})`, }}>
   <div className="hero-overlay bg-opacity-60"></div>
   <div className="hero-content text-neutral-content text-center">
     <div className="max-w-md">
@@ -106,6 +105,8 @@ const Home = () => {
 
       
     </div>
+      <Footer/>
+    </>
   );
 };
 

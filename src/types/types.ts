@@ -27,3 +27,8 @@ export interface Credentials {
     error: string | null;
   }
   
+  export interface InputDivTypes{
+    label: string;
+    type: string;
+    placeholder: string;
+  }
