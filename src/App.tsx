@@ -5,6 +5,7 @@ import About from './pages/About';
 import { AuthProvider } from './context/authContext';
 import AuthController from './pages/auth/authComponent';
 import Dashboard from './pages/dashboard/DashBoard';
+import Toast from './pages/auth/ToastResponse';
 
 const routes = createBrowserRouter([
   { path: '/', element: <Home /> },
@@ -13,7 +14,6 @@ const routes = createBrowserRouter([
   { path: 'dashboard/*', element: <Dashboard /> },
   { path: '*', element: <h1>Page Not Found</h1> },
 ]);
-
 function App() {
   return (
     <AuthProvider>
@@ -21,6 +21,7 @@ function App() {
         <RouterProvider router={routes} />
       </div>
       <AuthController/>
+      <Toast />
     </AuthProvider>
   );
 }

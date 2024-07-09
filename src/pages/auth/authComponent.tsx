@@ -1,17 +1,13 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useAuth } from '../../context/authContext';
-import { ToastResponseType } from '../../types/types';
-import Toast from './ToastResponse';
+// import { ToastResponseType } from '../../types/types';
 import Login from './login';
 import Register from './register';
 
 const AuthController = () => {
   const { isAuthModalOpen,openAuthModal, closeAuthModal, isLogin } = useAuth();
-  const [responseToast,setResponse]=useState<ToastResponseType>()
 
-  const clearResponse = () => {
-    setResponse(undefined);
-  };
+  
 
 
  
@@ -25,7 +21,7 @@ const AuthController = () => {
         {isLogin ? (
           // Login Form
           <>
-          <Login setResponse={setResponse}/>
+          <Login/>
           </>
           
         ) : (
@@ -59,7 +55,6 @@ const AuthController = () => {
         </div>
       </div>
     </div>
-<Toast response={responseToast} clearResponse={clearResponse}/>
   </>
   );
 };
