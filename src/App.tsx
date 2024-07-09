@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import Service from './pages/Service';
 import About from './pages/About';
 import { AuthProvider } from './context/authContext';
-import AuthController from './pages/authComponent';
+import AuthController from './pages/auth/authComponent';
 import Dashboard from './pages/dashboard/DashBoard';
 
 const routes = createBrowserRouter([

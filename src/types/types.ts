@@ -41,12 +41,13 @@ export interface Credentials {
   }
   
   export interface RegisterRequest {
-    username: string;
+    name: string;
     email: string;
-    password: string;
-    full_name: string;
-    contact_phone: string;
-    address: string;
+    password: string 
+    role:string | null;
+    // full_name: string;
+    // contact_phone: string;
+    // address: string;
   }
   
   export interface LoginResponse {
