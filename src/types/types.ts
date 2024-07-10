@@ -69,3 +69,50 @@ export interface Credentials {
     message: string;
     type: 'error' |'success';
   }
+
+  export interface DeleteRequest {
+    id: number;
+    // Add other fields needed for delete
+  }
+  
+  export interface DeleteResponse {
+    message: string;
+    deletedId: number; // Example of what your API might return upon deletion
+  }
+
+  export interface UpdateUserResponse {
+    success: boolean;
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      contact_phone: string;
+      address: string;
+    };
+  }
+
+  export interface UpdateUserRequest {
+    id: string;
+    name?: string;
+    email?: string;
+    contact_phone?: string;
+    address?: string;
+    password?: string;
+  };
+
+  export interface DeleteUserRequest {
+    id: string;
+  }
+  
+  export interface DeleteUserResponse {
+    mesage: string;
+  }
+
+  
+  export interface User{
+    id:string
+    name: string;
+    email: string;
+    contact_phone:string  
+    role:string
+  }
