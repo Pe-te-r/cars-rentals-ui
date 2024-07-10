@@ -6,6 +6,7 @@ import { AuthProvider } from './context/authContext';
 import AuthController from './pages/auth/authComponent';
 import Dashboard from './pages/dashboard/DashBoard';
 import Toast from './pages/auth/ToastResponse';
+import { DetailsProvider } from './context/LocalStorageContext';
 
 const routes = createBrowserRouter([
   { path: '/', element: <Home /> },
@@ -16,6 +17,7 @@ const routes = createBrowserRouter([
 ]);
 function App() {
   return (
+    <DetailsProvider>
       <AuthProvider>
         <div className="mainContainer bg-gray-900" style={{ minHeight: '100vh',position:'relative' }}>
           <RouterProvider router={routes} />
@@ -23,6 +25,7 @@ function App() {
         <AuthController/>
         <Toast />
       </AuthProvider>
+    </DetailsProvider>
   );
 }
 

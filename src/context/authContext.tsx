@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsAuthModalOpen(true);
   };
 
-  // const navigate = useNavigate()
 
   const closeAuthModal = () => setIsAuthModalOpen(false);
 

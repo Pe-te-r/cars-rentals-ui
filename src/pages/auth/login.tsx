@@ -2,9 +2,11 @@ import {  useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useLoginMutation } from "../../features/login_slice";
 import InputDiv from "../../components/InputDiv";
+import { useDetails } from "../../context/LocalStorageContext";
 
 const Login = () => {
-
+  // context hook for local storage 
+  const {  setUserDetail } = useDetails();
   const [loginUser, {isLoading}] = useLoginMutation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,14 +18,16 @@ const Login = () => {
           setResponseToast({ message: `Login successfully! ${response['name']} `, type: 'success' });
           console.log(response);
           closeAuthModal();
-          localStorage.setItem('details', JSON.stringify({
-            'login': 'true',
-            'name': `${response.name}`,
-            'email': `${response.email}`,
-            'contact': `${response.contact_phone}`,
-            'token': `${response.token}`
-          }));
-          
+          setUserDetail(
+            {
+              name: response.name,
+              email: response.email,
+              login: true,
+              contact_phone: response.contact_phone,
+              token: response.token,
+            }
+          )
+
           } catch (error) {
             console.error(error);
             setResponseToast({ message: `Login failed`, type: 'error' });

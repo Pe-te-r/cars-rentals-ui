@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../context/authContext';
 import ContactPage from '../pages/Contact';
 import ProfileCard from './ProfileCard';
+import { useDetails } from '../context/LocalStorageContext';
 
 const Navbar = () => {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
+  const { user } = useDetails();
 
   const toggleProfileVisibility = () => {
     setIsProfileVisible(!isProfileVisible);
@@ -23,25 +25,6 @@ const Navbar = () => {
     openAuthModal(value);
     setIsDropdownOpen(false);
   };
-
-  // check if there is any details for the user on localstorage
-  function hasUserDetails() {
-    const detailsString = localStorage.getItem('details');
-    // Check if detailsString exists and is not an empty string
-    return detailsString !== null && detailsString !== '';
-  }
-  
-  // if is logged in
-  function isLoggedIn() {
-    if (hasUserDetails()) {
-      const detailsString=localStorage.getItem('details');
-      if (detailsString !== null && detailsString !== '') {
-        const details = JSON.parse(detailsString);
-        return details.login === 'true'; 
-      }
-    }
-    return false;
-  }
 
   return (
     <>
@@ -64,7 +47,7 @@ const Navbar = () => {
             >
               Contact Us
             </button>
-            {isLoggedIn() ? 
+            {user ? 
             <>
             <div className="avatar">
               <div className="w-10 cursor-pointer h-10 rounded-full">
