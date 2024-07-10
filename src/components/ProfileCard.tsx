@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
+
 
 interface profileType{
     isProfileVisible: boolean;
@@ -11,23 +13,17 @@ interface profileTypeDetails{
 }
 
 const ProfileCard = ({isProfileVisible,toggleProfileVisibility}: profileType) => {
-    // const[name,setName]=useState('')
-    // const[email, setEmail]=useState('')
-    // const[contact_phone, setPhone]=useState('')
-    const [user,setUser]=useState<profileTypeDetails>()
-    
-    const detailsString=localStorage.getItem('details');
-    if (detailsString!== null && detailsString!== '') {
-      const details = JSON.parse(detailsString);
-      const user: profileTypeDetails={
-        name: details.name,
-        email: details.email,
-        contact_phone: details.contact
-      }
-      setUser(user);
-            }
+  const navigate = useNavigate()
+  
+  const {setResponseToast } = useAuth();
 
+  const handleLogout =()=>{
+    localStorage.removeItem('details');
+    toggleProfileVisibility();
+    navigate('/')
+    setResponseToast({ message: `Sad to see you leave`, type: '' });
 
+  }
   
 
   return (
@@ -42,9 +38,9 @@ const ProfileCard = ({isProfileVisible,toggleProfileVisibility}: profileType) =>
               className="w-10 h-10 rounded-full mr-4"
             />
             <div>
-              <h2 className="text-lg text-white font-semibold">{user?.name}</h2>
-              <p className="text-md text-gray-300">{user?.email}</p>
-              <p className="text-sm text-gray-500">{user?.contact_phone}</p>
+              {/* <h2 className="text-lg text-white font-semibold">{name}</h2> */}
+              {/* <p className="text-md text-gray-300">{user?.email}</p> */}
+              {/* <p className="text-sm text-gray-500">{user?.contact_phone}</p> */}
             </div>
           </div>
           <button
@@ -54,7 +50,7 @@ const ProfileCard = ({isProfileVisible,toggleProfileVisibility}: profileType) =>
             Close
           </button>
           <button
-            onClick={() => alert('Logging out...')}
+            onClick={() => handleLogout()}
             className="bg-yellow-500 text-gray-800 hover:bg-yellow-400 w-full py-2 rounded"
 
           >

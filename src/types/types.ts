@@ -67,7 +67,7 @@ export interface Credentials {
 
   export interface ToastResponseType {
     message: string;
-    type: 'error' |'success';
+    type: 'error' |'success' | '';
   }
 
   export interface DeleteRequest {
