@@ -16,6 +16,14 @@ const Login = () => {
           setResponseToast({ message: `Login successfully! ${response['name']} `, type: 'success' });
           console.log(response);
           closeAuthModal();
+          localStorage.setItem('details', JSON.stringify({
+            'login': 'true',
+            'name': `${response.name}`,
+            'email': `${response.email}`,
+            'contact': `${response.contact_phone}`,
+            'token': `${response.token}`
+          }));
+          
           } catch (error) {
             console.error(error);
             setResponseToast({ message: `Login failed`, type: 'error' });

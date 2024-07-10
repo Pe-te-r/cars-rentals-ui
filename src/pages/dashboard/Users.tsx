@@ -1,9 +1,9 @@
 import {  useState } from 'react';
 import { useDeleteUserMutation, useFetchAllUsersMutation, useUpdateUserMutation } from '../../features/login_slice';
 import { User } from '../../types/types';
-import { stringify } from 'postcss';
 
 const UsersTable = () => {
+  
   const {data,error, isLoading}  = useFetchAllUsersMutation();
   const [ updateUser]=useUpdateUserMutation() 
   const [deleting]=useDeleteUserMutation()
