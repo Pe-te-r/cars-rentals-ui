@@ -1,6 +1,7 @@
 // AuthContext.tsx
 import { createContext, useState, useContext, ReactNode } from 'react';
 import { ToastResponseType } from '../types/types';
+// import { useNavigate } from 'react-router-dom';
 
 interface AuthContextProps {
   isAuthModalOpen: boolean;
@@ -10,6 +11,7 @@ interface AuthContextProps {
   responseToast: ToastResponseType | undefined;
   setResponseToast: (response: ToastResponseType | undefined) => void;
   clearResponse: () => void;
+  // navigate: any
 
 }
 
@@ -29,6 +31,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLogin(isLogin);
     setIsAuthModalOpen(true);
   };
+
+  // const navigate = useNavigate()
 
   const closeAuthModal = () => setIsAuthModalOpen(false);
 

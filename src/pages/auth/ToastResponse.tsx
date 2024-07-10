@@ -17,7 +17,7 @@ const Toast = () => {
   return (
     <>
       {responseToast && (
-        <div role="alert" className={`alert fixed z-50 top-2 left-1/4 flex w-1/2 ${responseToast.type === 'error' ? 'alert-warning' : 'alert-success'}`}>
+        <div role="alert" className={`alert fixed absolute z-50 top-2 left-1/4 flex w-1/2 ${responseToast.type === 'error' ? 'alert-warning' : 'alert-success'}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 shrink-0 stroke-current"

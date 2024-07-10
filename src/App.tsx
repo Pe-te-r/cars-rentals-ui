@@ -16,13 +16,13 @@ const routes = createBrowserRouter([
 ]);
 function App() {
   return (
-    <AuthProvider>
-      <div className="mainContainer bg-gray-900" style={{ minHeight: '100vh',position:'relative' }}>
-        <RouterProvider router={routes} />
-      </div>
-      <AuthController/>
-      <Toast />
-    </AuthProvider>
+      <AuthProvider>
+        <div className="mainContainer bg-gray-900" style={{ minHeight: '100vh',position:'relative' }}>
+          <RouterProvider router={routes} />
+        </div>
+        <AuthController/>
+        <Toast />
+      </AuthProvider>
   );
 }
 

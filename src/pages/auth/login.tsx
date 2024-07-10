@@ -4,7 +4,8 @@ import { useLoginMutation } from "../../features/login_slice";
 import InputDiv from "../../components/InputDiv";
 
 const Login = () => {
-    const [loginUser, {isLoading}] = useLoginMutation();
+
+  const [loginUser, {isLoading}] = useLoginMutation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { closeAuthModal,setResponseToast } = useAuth();
@@ -30,6 +31,7 @@ const Login = () => {
               {isLoading ? <span className="loading loading-infinity loading-md"></span>: "login"}
             </button>
           </form>
+         
           </>
     )
 }
