@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import Service from './pages/Service';
 import About from './pages/About';
 import { AuthProvider } from './context/authContext';
-import AuthController from './pages/auth/authComponent';
 import Dashboard from './pages/dashboard/DashBoard';
 import Toast from './pages/auth/ToastResponse';
 import { DetailsProvider } from './context/LocalStorageContext';
@@ -22,7 +21,6 @@ function App() {
         <div className="mainContainer bg-gray-900" style={{ minHeight: '100vh',position:'relative' }}>
           <RouterProvider router={routes} />
         </div>
-        <AuthController/>
         <Toast />
       </AuthProvider>
     </DetailsProvider>

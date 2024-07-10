@@ -3,10 +3,12 @@ import { useAuth } from "../../context/authContext";
 import { useLoginMutation } from "../../features/login_slice";
 import InputDiv from "../../components/InputDiv";
 import { useDetails } from "../../context/LocalStorageContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   // context hook for local storage 
   const {  setUserDetail } = useDetails();
+  const navigate = useNavigate()
   const [loginUser, {isLoading}] = useLoginMutation();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -27,6 +29,7 @@ const Login = () => {
               token: response.token,
             }
           )
+         navigate('/dashboard')
 
           } catch (error) {
             console.error(error);

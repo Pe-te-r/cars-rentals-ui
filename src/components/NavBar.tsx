@@ -4,6 +4,7 @@ import { useAuth } from '../context/authContext';
 import ContactPage from '../pages/Contact';
 import ProfileCard from './ProfileCard';
 import { useDetails } from '../context/LocalStorageContext';
+import AuthController from '../pages/auth/authComponent';
 
 const Navbar = () => {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
@@ -140,6 +141,7 @@ const Navbar = () => {
         )}
       </nav>
       {isModalOpen && <ContactPage isOpen={isModalOpen} closeModal={closeModal} />}
+      <AuthController/>
     </>
   );
 };

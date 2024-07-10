@@ -1,4 +1,3 @@
-
 import image from '../assets/image6.jpg'
 import Footer from '../components/Footer';
 import Navbar from '../components/NavBar';
@@ -89,8 +88,6 @@ const Home = () => {
         </div>
       </div>
 
-      
-        
 
       
     </div>
