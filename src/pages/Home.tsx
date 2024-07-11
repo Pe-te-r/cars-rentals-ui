@@ -1,6 +1,7 @@
 import image from '../assets/image6.jpg'
 import Footer from '../components/Footer';
 import Navbar from '../components/NavBar';
+import { TypeAnimation } from 'react-type-animation';
 
 const Home = () => {
   return (
@@ -12,8 +13,23 @@ const Home = () => {
   <div className="hero-content text-neutral-content text-center">
     <div className="max-w-md">
       <h1 className="mb-5 text-5xl font-bold">Drive Your Dream Car Today!</h1>
-      <p className="mb-5">
-      Explore our wide range of luxury and economy vehicles for rent. Convenient, affordable, and tailored for your needs.
+      <p className="mb-5 text-yellow-500">
+      <TypeAnimation
+      sequence={[
+        3000, 
+        'Explore our luxury and Economy Vehicles!',
+        4000,
+        'Reserve your ride Today!',
+        3000,
+        'Convenient, affordable, and tailored for your needs.',
+        5000
+      ]}
+      wrapper="span"
+      speed={60}
+      style={{ fontSize: '2em', display: 'inline-block' }}
+      repeat={Infinity}
+    />
+      {/* Explore our wide range of luxury and economy vehicles for rent. Convenient, affordable, and tailored for your needs. */}
       </p>
       <div className='flex gap-3'>
         <button className="btn btn-secondary">Explore more cars </button>

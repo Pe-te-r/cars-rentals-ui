@@ -1,70 +1,75 @@
-import {  useState } from 'react';
+import { useState } from 'react';
 import { useDeleteUserMutation, useFetchAllUsersMutation, useUpdateUserMutation } from '../../features/login_slice';
 import { User } from '../../types/types';
 
 const UsersTable = () => {
   
-  const {data,error, isLoading}  = useFetchAllUsersMutation();
-  const [ updateUser]=useUpdateUserMutation() 
-  const [deleting]=useDeleteUserMutation()
-
-
-  console.log(data)
-  
-  console.log(error)
-  console.log(isLoading)
-  const [users, setUsers] = useState(data);
+  const { data,isLoading, refetch } = useFetchAllUsersMutation(undefined, {
+    pollingInterval: 8000, 
+});
+  const [updateUser] = useUpdateUserMutation();
+  const [deleteUser] = useDeleteUserMutation();
 
   const [editableRowId, setEditableRowId] = useState<number>(-1);
-  const [editName,setEditedName]=useState('')
-  const [editRole,setEditRole]=useState('')
-  const [editEmail,setEditEmail]=useState('')
-  const [editContact,setEditContact]=useState('')
+  const [editName, setEditedName] = useState('');
+  const [editRole, setEditRole] = useState('');
+  const [editEmail, setEditEmail] = useState('');
+  const [editContact, setEditContact] = useState('');
 
-  
-  const handleEditClick = (user:User) =>{
+  const handleEditClick = (user: User) => {
     setEditableRowId(Number(user.id));
     setEditedName(user.name);
     setEditRole(user.role);
     setEditEmail(user.email);
     setEditContact(user.contact_phone);
-  }
-  const handleDeleteClick = (id: string) =>{
-    const updatedUsers = users?.filter((user) => user.id!== id);
-    setUsers(updatedUsers);
-    deleting({id:id})
+  };
 
-  }
-  const handleCancelClick = () =>{
+  const handleDeleteClick = async (id: string) => {
+    await deleteUser({ id });
+    refetch();
+  };
+
+  const handleCancelClick = () => {
     setEditableRowId(-1);
-  }
-  const handleSaveClick = () =>{
-    const info ={
-      id:editableRowId.toString(),
-      name:editName,
-      role:editRole,
-      email:editEmail,
-      contact_phone:editContact,
-    }
-     updateUser(info)
-     setEditableRowId(-1)
-  }
+  };
+
+  const handleSaveClick = async () => {
+    const info = {
+      id: editableRowId.toString(),
+      name: editName,
+      role: editRole,
+      email: editEmail,
+      contact_phone: editContact,
+    };
+    await updateUser(info);
+    setEditableRowId(-1);
+    refetch();
+  };
 
   return (
-    
-     <div className="overflow-x-auto">
+    <div className="overflow-x-auto">
       <table className="min-w-full bg-yellow-50 shadow-md rounded-lg overflow-hidden">
         <thead className="bg-yellow-200 text-gray-800">
           <tr>
             <th className="px-4 py-2">Name</th>
             <th className="px-4 py-2">Email</th>
             <th className="px-4 py-2">Contact</th>
-            <th className="px-4 py-2">role</th>
+            <th className="px-4 py-2">Role</th>
             <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
-          {users?.map((user) => (
+          {isLoading? (
+            <tr className='bg-gray-800'>
+              <td><span className="loading loading-ring loading-lg"></span></td>
+              <td><span className="loading loading-ring loading-lg"></span></td>
+              <td><span className="loading loading-ring loading-lg"></span></td>
+              <td><span className="loading loading-ring loading-lg"></span></td>
+              <td><span className="loading loading-ring loading-lg"></span></td>
+              
+              </tr>) : null}
+
+          {data?.map((user: any) => (
             <tr key={user.id} className="bg-green-800 border-b border-gray-200">
               {Number(editableRowId) === Number(user.id) ? (
                 <>
@@ -140,10 +145,9 @@ const UsersTable = () => {
             </tr>
           ))}
         </tbody>
-      </table> 
+      </table>
     </div>
   );
 };
 
 export default UsersTable;
-;
