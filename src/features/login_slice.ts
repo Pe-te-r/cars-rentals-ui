@@ -49,5 +49,5 @@ export const useLoginMutation: UseLoginMutation = authApi.endpoints.login.useMut
 export const useRegisterMutation: UseRegisterMutation = authApi.endpoints.register.useMutation;
 export const useDeleteUserMutation: UseDeleteUserMutation = authApi.endpoints.deleteUser.useMutation;
 export const useUpdateUserMutation: UseUpdateUserMutation = authApi.endpoints.updateUser.useMutation;
-export const useFetchAllUsersMutation: UseFetchAllUsersQuery = authApi.endpoints.fetchAllUsers.useQuery;
+export const useFetchAllUsersQuery: UseFetchAllUsersQuery = authApi.endpoints.fetchAllUsers.useQuery;
 

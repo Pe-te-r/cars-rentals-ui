@@ -16,13 +16,12 @@ const Home = () => {
       <p className="mb-5 text-yellow-500">
       <TypeAnimation
       sequence={[
-        3000, 
         'Explore our luxury and Economy Vehicles!',
-        4000,
-        'Reserve your ride Today!',
         3000,
+        'Reserve your ride Today!',
+        2000,
         'Convenient, affordable, and tailored for your needs.',
-        5000
+        4000
       ]}
       wrapper="span"
       speed={60}
