@@ -5,13 +5,14 @@ interface DynamicFormTypes{
     handleCancelClick: () => void;
     handleSaveClick: () => void;
     shareFunctions: any;
+    heading: string;
 }
 
-const DynamicForm = ({handleCancelClick,handleSaveClick, shareFunctions}: DynamicFormTypes) => {
+const DynamicForm = ({heading,handleCancelClick,handleSaveClick, shareFunctions}: DynamicFormTypes) => {
     return (
         <div className="fixed inset-0  bg-gray-900 bg-opacity-85 flex items-center justify-center">
-          <div className="bg-gray-900 w-1/2 rounded-lg p-8 rounded shadow-lg">
-            <h2 className="text-2xl font-bold mb-4">Edit User</h2>
+          <div className="form-modal bg-gray-900 w-1/2 rounded-lg p-8 rounded shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">{heading}</h2>
             <form>
               {
                 shareFunctions.map((item: any, index: number) => (

@@ -2,8 +2,8 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import SideNav from './SideNav';
 import Content from './Content';
 import Navbar from '../../components/NavBar';
-import UsersTable from './Users';
-import VehiclesTable from './vehicles';
+import UsersTable from './users/Users';
+import VehiclesTable from './vehicles/vehicles';
 
 const Dashboard = () => {
   return (

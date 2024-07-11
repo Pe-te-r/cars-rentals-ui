@@ -116,3 +116,9 @@ export interface Credentials {
     contact_phone:string  
     role:string
   }
+
+  export interface vehicleResponse{
+    result:string
+  }
+
+  // export interface

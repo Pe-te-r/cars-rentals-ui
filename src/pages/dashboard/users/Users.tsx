@@ -153,10 +153,10 @@
 
 
 import  { useState } from 'react';
-import { useDeleteUserMutation, useFetchAllUsersQuery, useUpdateUserMutation } from '../../features/login_slice';
-import DynamicTable from '../../components/Table';
-import { User } from '../../types/types';
-import DynamicForm from '../../components/DynamicForm';
+import { useDeleteUserMutation, useFetchAllUsersQuery, useUpdateUserMutation } from '../../../features/login_slice';
+import DynamicTable from '../../../components/Table';
+import { User } from '../../../types/types';
+import DynamicForm from '../../../components/DynamicForm';
 
 const UsersTableContainer = () => {
   const {data,isLoading, refetch } = useFetchAllUsersQuery(undefined, {
@@ -181,7 +181,7 @@ const UsersTableContainer = () => {
 
   const handleDeleteClick = async (id: string) => {
     await deleteUser({ id });
-    refetch(); // Fetch the latest data after deletion
+    refetch(); 
   };
 
   const handleCancelClick = () => {
@@ -228,16 +228,16 @@ const UsersTableContainer = () => {
   ]
 
   return (
-    <div>
+    <>
       {isLoading? (
-            <tr className='bg-gray-800'>
-              <td><span className="loading loading-ring loading-lg"></span></td>
-              <td><span className="loading loading-ring loading-lg"></span></td>
-              <td><span className="loading loading-ring loading-lg"></span></td>
-              <td><span className="loading loading-ring loading-lg"></span></td>
-              <td><span className="loading loading-ring loading-lg"></span></td>
+            <div className='bg-gray-800'>
+              <span><span className="loading loading-ring loading-lg"></span></span>
+              <span><span className="loading loading-ring loading-lg"></span></span>
+              <span><span className="loading loading-ring loading-lg"></span></span>
+              <span><span className="loading loading-ring loading-lg"></span></span>
+              <span><span className="loading loading-ring loading-lg"></span></span>
               
-              </tr>) : null}
+              </div>) : null}
       <DynamicTable 
         headers={headers} 
         data={dataRows} 
@@ -248,9 +248,9 @@ const UsersTableContainer = () => {
         // onCancel={handleCancelClick}
       />
       {editableRowId > 0 && (
-        <DynamicForm handleCancelClick={handleCancelClick} handleSaveClick={handleSaveClick} shareFunctions={shareUpdateFunctionality}/>
+        <DynamicForm heading='Edit user' handleCancelClick={handleCancelClick} handleSaveClick={handleSaveClick} shareFunctions={shareUpdateFunctionality}/>
       )}
-    </div>
+    </>
   );
 };
 

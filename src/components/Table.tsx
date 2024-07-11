@@ -4,12 +4,15 @@ interface TableProps {
   headers: string[];
   data: { [key: string]: any }[];
   onEdit?: any;
-  onDelete?: (id: string) => void;
+  // onDelete?: (id: string) => void;
+  onDelete?: any;
   onSave?: (row: { [key: string]: any }) => void;
   onCancel?: () => void;
 }
 
 const DynamicTable: React.FC<TableProps> = ({ headers, data, onEdit, onDelete}) => {
+  // console.log(headers);
+  // console.log(data[1]['availablity'])
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-yellow-50 shadow-md rounded-lg overflow-hidden">
