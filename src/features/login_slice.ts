@@ -3,7 +3,15 @@ import { DeleteUserRequest, DeleteUserResponse, LoginRequest, LoginResponse, Reg
 
 export const authApi = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/',
+    prepareHeaders: (headers)=>{
+  
+      // headers.set('Content-Type', 'application/json');
+      if (localStorage.getItem('token')) {
+        headers.set('Authorization', `${localStorage.getItem('token')}`);
+      }
+      return headers;
+    } }),
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
@@ -32,8 +40,9 @@ export const authApi = createApi({
           body: data,
         }),
       }),
-    fetchAllUsers: builder.query<User[], void>({
-        query: () => 'users', 
+    fetchAllUsers: builder.query<User[], {token: string}>({
+        query: ()=> 'users',
+        
       }),
   }),
 });

@@ -1,4 +1,4 @@
-import image from '../assets/image6.jpg'
+import image from '../assets/image6.jpeg'
 import Footer from '../components/Footer';
 import Navbar from '../components/NavBar';
 import { TypeAnimation } from 'react-type-animation';

@@ -157,11 +157,15 @@ import { useDeleteUserMutation, useFetchAllUsersQuery, useUpdateUserMutation } f
 import DynamicTable from '../../../components/Table';
 import { User } from '../../../types/types';
 import DynamicForm from '../../../components/DynamicForm';
+import { useDetails } from '../../../context/LocalStorageContext';
 
 const UsersTableContainer = () => {
-  const {data,isLoading, refetch } = useFetchAllUsersQuery(undefined, {
+  const {user}=useDetails()
+  const token =user?.token || '' 
+  const {data,isLoading, refetch,isError } = useFetchAllUsersQuery({token}, {
     pollingInterval: 8000, // 8 seconds in milliseconds
   });
+
   const [updateUser] = useUpdateUserMutation();
   const [deleteUser] = useDeleteUserMutation();
 
@@ -186,8 +190,8 @@ const UsersTableContainer = () => {
 
   const handleCancelClick = () => {
     setEditableRowId(-1);
-  };
-
+    };
+    
   const handleSaveClick = async () => {
     const info = {
       id: editableRowId.toString(),
@@ -195,15 +199,16 @@ const UsersTableContainer = () => {
       role: editRole,
       email: editEmail,
       contact_phone: editContact,
-    };
-    await updateUser(info);
-    setEditableRowId(-1);
+      };
+      await updateUser(info);
+      setEditableRowId(-1);
     refetch(); // Fetch the latest data after update
   };
 
   const headers = ["name", "email", "contact_phone", "role"];
   const dataRows = data || [];
-
+  
+  console.log(data)
   const shareUpdateFunctionality =[
     {
       text: 'Name',
@@ -237,7 +242,7 @@ const UsersTableContainer = () => {
               <span><span className="loading loading-ring loading-lg"></span></span>
               <span><span className="loading loading-ring loading-lg"></span></span>
               
-              </div>) : null}
+              </div>) : isError? <h3>Error occured</h3> :
       <DynamicTable 
         headers={headers} 
         data={dataRows} 
@@ -246,7 +251,7 @@ const UsersTableContainer = () => {
         onDelete={handleDeleteClick} 
         // onSave={handleSaveClick}
         // onCancel={handleCancelClick}
-      />
+      />}
       {editableRowId > 0 && (
         <DynamicForm heading='Edit user' handleCancelClick={handleCancelClick} handleSaveClick={handleSaveClick} shareFunctions={shareUpdateFunctionality}/>
       )}
