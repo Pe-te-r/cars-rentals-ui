@@ -16,7 +16,8 @@ const Login = () => {
     const handleLogin=async(e: React.FormEvent) => {
         e.preventDefault();
         try {
-          const response =await loginUser({ email, password }).unwrap();
+          const response =await loginUser({ email,password}).unwrap();
+          console.log(response)
           setResponseToast({ message: `Login successfully! ${response['name']} `, type: 'success' });
           console.log(response);
           closeAuthModal();

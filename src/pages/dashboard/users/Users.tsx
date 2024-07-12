@@ -157,12 +157,12 @@ import { useDeleteUserMutation, useFetchAllUsersQuery, useUpdateUserMutation } f
 import DynamicTable from '../../../components/Table';
 import { User } from '../../../types/types';
 import DynamicForm from '../../../components/DynamicForm';
-import { useDetails } from '../../../context/LocalStorageContext';
+// import { useDetails } from '..a/../../context/LocalStorageContext';
 
 const UsersTableContainer = () => {
-  const {user}=useDetails()
-  const token =user?.token || '' 
-  const {data,isLoading, refetch,isError } = useFetchAllUsersQuery({token}, {
+  // const {user}=useDetails()
+  // const token =user?.token || '' 
+  const {data,isLoading,error ,refetch,isError } = useFetchAllUsersQuery(undefined, {
     pollingInterval: 8000, // 8 seconds in milliseconds
   });
 
@@ -187,6 +187,7 @@ const UsersTableContainer = () => {
     await deleteUser({ id });
     refetch(); 
   };
+  // console.log(error[''])
 
   const handleCancelClick = () => {
     setEditableRowId(-1);
@@ -208,7 +209,6 @@ const UsersTableContainer = () => {
   const headers = ["name", "email", "contact_phone", "role"];
   const dataRows = data || [];
   
-  console.log(data)
   const shareUpdateFunctionality =[
     {
       text: 'Name',
@@ -231,18 +231,15 @@ const UsersTableContainer = () => {
       changeValue: setEditRole
     }
   ]
-
+  const errorMessage: any = error
+  // console.log(dataRows)
   return (
     <>
       {isLoading? (
             <div className='bg-gray-800'>
-              <span><span className="loading loading-ring loading-lg"></span></span>
-              <span><span className="loading loading-ring loading-lg"></span></span>
-              <span><span className="loading loading-ring loading-lg"></span></span>
-              <span><span className="loading loading-ring loading-lg"></span></span>
-              <span><span className="loading loading-ring loading-lg"></span></span>
-              
-              </div>) : isError? <h3>Error occured</h3> :
+              <span><span className="loading fixed top-1/2 left-1/2 loading-ring loading-lg"></span></span>             
+              </div>) : isError? <h3>{errorMessage['data']}</h3> :
+          !Array.isArray(dataRows) ?  <h2>{dataRows['error']}</h2> :
       <DynamicTable 
         headers={headers} 
         data={dataRows} 

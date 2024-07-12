@@ -121,4 +121,9 @@ export interface Credentials {
     result:string
   }
 
-  // export interface
+  export interface vehicleParams{
+    id: string,
+    rental_rate: string,
+    availability: boolean,
+    location_id: string
+  }

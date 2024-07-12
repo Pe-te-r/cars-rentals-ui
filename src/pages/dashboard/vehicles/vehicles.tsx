@@ -5,10 +5,10 @@ import DynamicForm from "../../../components/DynamicForm";
 
 const VehiclesTable=()=>{
   const {data,refetch, isLoading,isSuccess}= useVehicleQuery(undefined,{pollingInterval:50000})
+  const [vehicles,setVehicles]= useState([])
   const[updateVehicle]= useUpdateVehicleMutation()
   const [deleteVehicle]= useDeleteVehicleMutations()
   const [editableRowId, setEditableRowId] = useState<number>(-1);
-  const [vehicles,setVehicles]= useState()
   const [rental_rate, setRentalRate] = useState('')
   const [availability, setAvailability] = useState('')
   const [location,setLocation] = useState('')
@@ -23,7 +23,6 @@ const VehiclesTable=()=>{
 
   const headers= ['rental_rate','availability','location_id']
   const vehiclesDetails: any =vehicles || []
-  console.log(vehiclesDetails)
 
   const shareUpdateFunctionality =[
     {
@@ -33,7 +32,7 @@ const VehiclesTable=()=>{
     },
     {
       text: 'availability',
-      value: availability ? "yes" : "no",
+      value: availability ? "true" : "false",
       changeValue: setAvailability
     },
     {
@@ -51,7 +50,7 @@ const VehiclesTable=()=>{
     const info = {
       id: editableRowId.toString(),
       rental_rate: rental_rate,
-      // availability: availability,
+      availability: availability,
       location_id: location,
     };
     await updateVehicle(info);
@@ -64,6 +63,7 @@ const VehiclesTable=()=>{
     setRentalRate(vehicle.rental_rate);
     setAvailability(vehicle.availability);
     setLocation(vehicle.location_id);
+    
 
   }
 
@@ -72,14 +72,14 @@ const VehiclesTable=()=>{
     refetch()
   }
 
+  console.log(vehiclesDetails)
 
   return(
     <>
     <div>
-      {isLoading ? <span className="loading loading-bars loading-lg"></span> : '' }
+      {isLoading ? <span className="loading fixed top-1/2 left-1/2 loading-bars loading-lg"></span> : '' }
        <DynamicTable headers={headers} data={vehiclesDetails} onEdit={handleEditClick} onDelete={handleDeleteClick} /> 
        {editableRowId > 0 &&<> <DynamicForm heading='Edit vehicle' shareFunctions={shareUpdateFunctionality} handleCancelClick={handleCancelClick} handleSaveClick={handleSaveClick}/></>}
-       <h4>{editableRowId}</h4>
     </div>
     </>
   )

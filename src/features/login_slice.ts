@@ -5,13 +5,15 @@ export const authApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/',
     prepareHeaders: (headers)=>{
-  
-      // headers.set('Content-Type', 'application/json');
-      if (localStorage.getItem('token')) {
-        headers.set('Authorization', `${localStorage.getItem('token')}`);
+      headers.set('Content-Type', 'application/json');
+      const data = JSON.parse(localStorage.getItem('user')|| '{}')
+      const token = data['token']
+      if (token) {
+        headers.set('Authorization', `${token}`);
       }
       return headers;
-    } }),
+    } 
+    }),
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
       query: (credentials) => ({
@@ -40,7 +42,7 @@ export const authApi = createApi({
           body: data,
         }),
       }),
-    fetchAllUsers: builder.query<User[], {token: string}>({
+    fetchAllUsers: builder.query<User[], void>({
         query: ()=> 'users',
         
       }),
@@ -59,4 +61,3 @@ export const useRegisterMutation: UseRegisterMutation = authApi.endpoints.regist
 export const useDeleteUserMutation: UseDeleteUserMutation = authApi.endpoints.deleteUser.useMutation;
 export const useUpdateUserMutation: UseUpdateUserMutation = authApi.endpoints.updateUser.useMutation;
 export const useFetchAllUsersQuery: UseFetchAllUsersQuery = authApi.endpoints.fetchAllUsers.useQuery;
-

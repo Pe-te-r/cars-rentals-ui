@@ -4,6 +4,7 @@ import Content from './Content';
 import Navbar from '../../components/NavBar';
 import UsersTable from './users/Users';
 import VehiclesTable from './vehicles/vehicles';
+import VehiclesPhoto from './vehicles/vehiclesPhoto';
 
 const Dashboard = () => {
   return (
@@ -17,6 +18,7 @@ const Dashboard = () => {
             <Route path="/content" element={<Content />} />
             <Route path="/users" element={<UsersTable />} />
             <Route path="/vehicles" element={<VehiclesTable />} />
+            <Route path="/photos" element={<VehiclesPhoto />} />
           </Routes>
           <Outlet />
         </div>
