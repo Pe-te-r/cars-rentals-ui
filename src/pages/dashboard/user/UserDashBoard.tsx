@@ -5,9 +5,9 @@ import UserProfile from './profile/Profile';
 
 const UserDashboard = () => {
   return (
-    <div className='dashboardDiv'>
+    <div className='dashboardDiv '>
       <Navbar />
-      <div className="flex h-screen">
+      <div className="flex h-min">
         <UserSideNav className="" />
         <div className="flex-1 overflow-y-auto p-4 ml-2">
           <Routes>
