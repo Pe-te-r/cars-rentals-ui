@@ -13,7 +13,7 @@ const DynamicTable: React.FC<TableProps> = ({ headers, data, onEdit, onDelete}) 
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full bg-yellow-50 shadow-md rounded-lg overflow-hidden">
-        <thead className="bg-yellow-200 text-gray-800">
+        <thead className="bg-gray-800 text-gray-100">
           <tr>
             {headers.map((header, index) => (
               <th key={index} className="px-4 py-2">{header}</th>
@@ -23,9 +23,9 @@ const DynamicTable: React.FC<TableProps> = ({ headers, data, onEdit, onDelete}) 
         </thead>
         <tbody>
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex} className="bg-green-800 border-b border-gray-200">
+            <tr key={rowIndex} className="bg-white border-b border-gray-200">
               {headers.map((header, index) => (
-                <td key={index} className="px-4 py-2 text-yellow-500">{row[header]}</td>
+                <td key={index} className="px-4 py-2 text-black font-bold">{row[header]}</td>
               ))}
               {(onEdit || onDelete) && (
                 <td className="px-4 py-2">
