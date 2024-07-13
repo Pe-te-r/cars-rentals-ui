@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import Service from './pages/Service';
 import About from './pages/About';
 import { AuthProvider } from './context/authContext';
-import Dashboard from './pages/dashboard/DashBoard';
+import Dashboard from './pages/dashboard/admin/users/DashBoard';
 import Toast from './pages/auth/ToastResponse';
 import { DetailsProvider } from './context/LocalStorageContext';
 
@@ -11,7 +11,7 @@ const routes = createBrowserRouter([
   { path: '/', element: <Home /> },
   { path: 'service', element: <Service /> },
   { path: 'about', element: <About /> },
-  { path: 'dashboard/*', element: <Dashboard /> },
+  { path: 'admin/*', element: <Dashboard /> },
   { path: '*', element: <h1>Page Not Found</h1> },
 ]);
 function App() {

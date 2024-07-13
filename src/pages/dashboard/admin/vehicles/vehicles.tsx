@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import DynamicTable from "../../../components/Table";
-import { useDeleteVehicleMutations, useUpdateVehicleMutation, useVehicleQuery } from "../../../features/vehiclesSlice";
-import DynamicForm from "../../../components/DynamicForm";
+import DynamicTable from "../../../../components/Table";
+import { useDeleteVehicleMutations, useUpdateVehicleMutation, useVehicleQuery } from "../../../../features/vehiclesSlice";
+import DynamicForm from "../../../../components/DynamicForm";
 
 const VehiclesTable=()=>{
   const {data,refetch, isLoading,isSuccess}= useVehicleQuery(undefined,{pollingInterval:50000})

@@ -153,10 +153,10 @@
 
 
 import  { useState } from 'react';
-import { useDeleteUserMutation, useFetchAllUsersQuery, useUpdateUserMutation } from '../../../features/login_slice';
-import DynamicTable from '../../../components/Table';
-import { User } from '../../../types/types';
-import DynamicForm from '../../../components/DynamicForm';
+import { useDeleteUserMutation, useFetchAllUsersQuery, useUpdateUserMutation } from '../../../../features/login_slice';
+import DynamicTable from '../../../../components/Table';
+import { User } from '../../../../types/types';
+import DynamicForm from '../../../../components/DynamicForm';
 // import { useDetails } from '..a/../../context/LocalStorageContext';
 
 const UsersTableContainer = () => {
