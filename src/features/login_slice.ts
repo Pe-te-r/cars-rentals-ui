@@ -46,6 +46,9 @@ export const authApi = createApi({
         query: ()=> 'users',
         
       }),
+    fetchOneUser: builder.query<any,string>({
+      query: (id) => `users/${id}?details=true`,
+    })
   }),
 });
 
@@ -54,6 +57,7 @@ type UseRegisterMutation = typeof authApi.endpoints.register.useMutation;
 type UseDeleteUserMutation = typeof authApi.endpoints.deleteUser.useMutation;
 type UseUpdateUserMutation = typeof authApi.endpoints.updateUser.useMutation;
 type UseFetchAllUsersQuery = typeof authApi.endpoints.fetchAllUsers.useQuery;
+type useFetchOneUserQuery = typeof authApi.endpoints.fetchOneUser.useQuery
 
 
 export const useLoginMutation: UseLoginMutation = authApi.endpoints.login.useMutation;
@@ -61,3 +65,4 @@ export const useRegisterMutation: UseRegisterMutation = authApi.endpoints.regist
 export const useDeleteUserMutation: UseDeleteUserMutation = authApi.endpoints.deleteUser.useMutation;
 export const useUpdateUserMutation: UseUpdateUserMutation = authApi.endpoints.updateUser.useMutation;
 export const useFetchAllUsersQuery: UseFetchAllUsersQuery = authApi.endpoints.fetchAllUsers.useQuery;
+export const useFetchOneUserQuery: useFetchOneUserQuery = authApi.endpoints.fetchOneUser.useQuery;

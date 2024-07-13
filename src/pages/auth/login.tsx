@@ -23,6 +23,7 @@ const Login = () => {
           closeAuthModal();
           setUserDetail(
             {
+              id:response.id.toString(),
               name: response.name,
               email: response.email,
               login: true,
@@ -33,7 +34,7 @@ const Login = () => {
           if(response.role === 'admin'){
             navigate('/admin')
           }else{
-            navigate('/user')
+            navigate('/dashboard')
           }
 
           } catch (error) {

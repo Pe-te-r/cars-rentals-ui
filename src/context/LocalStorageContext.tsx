@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 // Define the shape of the user details
 interface UserDetails {
+  id:string;
   name: string;
   email: string;
   login: boolean;

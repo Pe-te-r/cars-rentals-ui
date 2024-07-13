@@ -13,7 +13,7 @@ const routes = createBrowserRouter([
   { path: 'service', element: <Service /> },
   { path: 'about', element: <About /> },
   { path: 'admin/*', element: <Dashboard /> },
-  { path: 'user/*', element: <UserDashboard /> },
+  { path: 'dashboard/*', element: <UserDashboard /> },
   { path: '*', element: <h1>Page Not Found</h1> },
 ]);
 function App() {
