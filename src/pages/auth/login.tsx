@@ -30,7 +30,11 @@ const Login = () => {
               token: response.token,
             }
           )
-         navigate('/dashboard')
+          if(response.role === 'admin'){
+            navigate('/admin')
+          }else{
+            navigate('/user')
+          }
 
           } catch (error) {
             console.error(error);
