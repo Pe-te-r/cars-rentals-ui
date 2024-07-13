@@ -47,7 +47,7 @@ export const authApi = createApi({
         
       }),
     fetchOneUser: builder.query<any,string>({
-      query: (id) => `users/${id}?details=true`,
+      query: (id) => `users/${id}`,
     })
   }),
 });
