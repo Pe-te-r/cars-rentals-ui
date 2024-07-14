@@ -1,9 +1,13 @@
 
+import { useNavigate } from "react-router-dom";
 import { useDetails } from "../../../../context/LocalStorageContext";
 import { useFetchOneUserQuery } from "../../../../features/login_slice";
+import { useAuth } from "../../../../context/authContext";
 
 const UserProfile = () => {
+  const navigate=useNavigate()
   const user = useDetails();
+  const {setResponseToast } = useAuth();
   const { data,isSuccess, isError,isLoading } = useFetchOneUserQuery(user.user?.id!,{refetchOnReconnect:true});
 
   if (isLoading) {
@@ -11,6 +15,13 @@ const UserProfile = () => {
   }
   if(isSuccess){
     console.log(data['results']);
+  }
+
+  const handleLogout =()=>{
+    user.clearUserDetail();
+    navigate('/')
+    setResponseToast({ message: `Sad to see you leave`, type: '' });
+
   }
   
   return (<>
@@ -24,11 +35,11 @@ const UserProfile = () => {
             </div>
         </div>
     </div>
-<div className="flex flex-col w-full justify-center ml-4 items-center"> 
+<div className="flex flex-col  w-full justify-center ml-4 items-center"> 
         <h1 className="text-center w-4/5 font-bold font-serif font-bold  text-[2.1rem]">Welcome <span className="italic text-white ml-2">{data['results'].name}</span></h1> 
-        <div className="w-full flex flex-col justify-center items-center"> 
+        <div className="w-full flex flex-col  justify-center items-center"> 
             {/* personal info */}
-          <div className="w-4/5 flex bg-gray-900 p-2 mb-3 rounded-md">
+          <div className="w-4/5 flex bg-gray-900 relative p-2 mb-3 rounded-md">
             <div className="mr-3">
                 <p className="text-[1.5rem] mt-2 mb-2 text-gray-200  font-san pt-2  text-gray-500">Name: <span className="text-gray-400"> {data['results'].name}</span></p>
                 <p className="text-[1.5rem] mt-2 mb-2 text-gray-200  font-san pt-2  text-gray-500">Email: <span className="text-gray-400"> {data['results'].email}</span></p>
@@ -36,6 +47,9 @@ const UserProfile = () => {
             <div className="ml-3">
                 <p className="text-[1.5rem] mt-2 mb-2 text-gray-200  font-san pt-2  text-gray-500">Phone: <span className="text-gray-400"> {data['results'].contact_phone}</span></p>
                 <p className="text-[1.5rem] mt-2 mb-2 text-gray-200  font-san pt-2 text-gray-500">Role: <span className="text-gray-400">{data['results'].role}</span></p>
+            </div>
+            <div className="absolute top-1/2 right-0">
+              <button className="btn hover:bg-blue-900 bg-blue-800 m-2" onClick={handleLogout}>Logout</button>
             </div>
           </div>
             {/* end of personal info  */}
