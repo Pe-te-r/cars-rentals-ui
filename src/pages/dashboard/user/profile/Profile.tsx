@@ -37,7 +37,7 @@ const UserProfile = () => {
         </div>
     </div>
 <div className="flex flex-col  w-full justify-center ml-4 items-center"> 
-        <h1 className="text-center text-green-800 w-4/5 font-bold font-serif font-bold  text-[2.1rem]">Welcome <span className="italic  ml-2">{data['results'].name}</span></h1> 
+        <h1 className="text-center text-white w-4/5 font-bold font-serif font-bold  text-[2.1rem]">Welcome <span className="italic  ml-2">{data['results'].name}</span></h1> 
         <div className="w-full flex flex-col  justify-center items-center"> 
             {/* personal info */}
           <div className="personal-details w-full flex relative p-2 mb-3 rounded-md">

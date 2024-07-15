@@ -13,13 +13,10 @@ const CarProfile = ({booking,index}: any) => {
                             <h4>{booking['vehicle']['vehicleSpecification']['manufacturer']}  {booking['vehicle']['vehicleSpecification']['model']}</h4>
                         </div>
                         <div className="flex gap-2 flex-col p-4">
+                        <p>Location: <span className="text-gray-300">{booking['vehicle']['location']['name']}</span></p>
+                        <p>Available: <span className="text-gray-300">{booking['vehicle']['availability'].toString()}</span></p>
+                        <p>Contact: <span className="text-gray-300">{booking['vehicle']['location']['contact']}</span></p>
 
-                        <p>Vehicle Name: <span className="text-gray-400">{booking['vehicle']['vehicleSpecification']['manufacturer']}  {booking['vehicle']['vehicleSpecification']['model']}</span></p>
-                        <p>Available: <span className="text-gray-400">{booking['vehicle']['availability'].toString()}</span></p>
-                        <p>Location: <span className="text-gray-400">{booking['vehicle']['location']['name']}</span></p>
-                        <p>Contact: <span className="text-gray-400">{booking['vehicle']['location']['contact']}</span></p>
-                        <p>Booking Date: <span className="text-gray-400">{booking['booking_date']}</span></p>
-                        <p>Return Date: <span className="text-gray-400">{booking['return_date']}</span></p>
                         </div>
                         <div className="flex p-2">
                             <button className="buttons btn mr-3 hover:bg-yellow-800 text-black">More details</button>
