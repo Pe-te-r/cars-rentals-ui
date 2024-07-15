@@ -27,7 +27,7 @@ const ProfileCard = ({isProfileVisible,toggleProfileVisibility}: profileType) =>
     <div className="relative">
 
       {isProfileVisible && (
-        <div className="profileDisplay absolute top-12 right-0 bg-gray-900 text-white p-4 rounded-lg shadow-lg w-64 p-2">
+        <div className="profileDisplay z-50 absolute top-12 right-0 bg-gray-900 text-white p-4 rounded-lg shadow-lg w-64 p-2">
           <div className="flex items-center mb-4">
             <img
               src="https://avatars.githubusercontent.com/u/106557118?v=4"
