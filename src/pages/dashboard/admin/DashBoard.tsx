@@ -1,6 +1,5 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import SideNav from './SideNav';
-import Content from './users/Content';
 import Navbar from '../../../components/NavBar';
 import UsersTable from './users/Users';
 import VehiclesTable from './vehicles/vehicles';
@@ -15,7 +14,7 @@ const Dashboard = () => {
         <div className="flex-1 overflow-y-auto p-4 ml-2">
           <Routes>
             <Route path="/" element={<div>Welcome to the Dashboard</div>} />
-            <Route path="/content" element={<Content />} />
+            {/* <Route path="/content" element={<Content />} /> */}
             <Route path="/users" element={<UsersTable />} />
             <Route path="/vehicles" element={<VehiclesTable />} />
             <Route path="/photos" element={<VehiclesPhoto />} />

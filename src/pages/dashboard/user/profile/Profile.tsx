@@ -68,9 +68,9 @@ const UserProfile = () => {
           <div className="w-full flex flex-row flex-wrap rounded-md">
             {data['results']['customerSupportTickets'].map((ticket: any,index:number)=>(
                 <div key={index} className="flex m-2 w-max card-info rounded-md flex-col gap-2 w-max p-4">
-                    <p className="font-serif text-[1rem] font-normal text-white" >Subject: <span  className="text-white text-[0.9rem]">{ticket['subject']}</span></p>
-                    <p className="font-serif text-[1rem] font-normal text-white" >Description: <span className="text-white">{ticket['description']}</span></p>
-                    <p  className="font-serif text-[1rem]font-normal  text-white">Status: <span className="text-white">{ticket['status']}</span></p>
+                    <p className="text-white" >Subject: <span  className="text-white ">{ticket['subject']}</span></p>
+                    <p className="text-white" >Description: <span className="text-white">{ticket['description']}</span></p>
+                    <p  className="text-white">Status: <span className="text-white">{ticket['status']}</span></p>
                     {ticket['status'] === 'pending'? 
                     <div className="mt-3">
                       <button className="buttons btn hover:bg-yellow-800 text-black"> Edit</button>

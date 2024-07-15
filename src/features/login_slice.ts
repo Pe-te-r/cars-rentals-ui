@@ -36,12 +36,12 @@ export const authApi = createApi({
       }),
     }),
     updateUser: builder.mutation<UpdateUserResponse, UpdateUserRequest>({
-        query: ({ id, ...data }) => ({
-          url: `users/${id}`,
-          method: 'PUT',
-          body: data,
-        }),
+      query: ({ id, ...data }) => ({
+        url: `users/${id}`,
+        method: 'PUT',
+        body: data,
       }),
+    }),
     fetchAllUsers: builder.query<User[], void>({
         query: ()=> 'users',
         
