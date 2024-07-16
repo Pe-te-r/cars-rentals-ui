@@ -10,6 +10,7 @@ const VehiclesPhoto = () => {
     useEffect(() => {
         if (isSuccess && data) {
             setVehicles(data['results']);
+            console.log(data['results']);
         }
     }, [isSuccess, data]);
 

@@ -2,8 +2,8 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import SideNav from './SideNav';
 import Navbar from '../../../components/NavBar';
 import UsersTable from './users/Users';
-import VehiclesTable from './vehicles/vehicles';
 import VehiclesPhoto from './vehicles/vehiclesPhoto';
+import Bookings from './bookings/Bookings';
 
 const Dashboard = () => {
   return (
@@ -16,8 +16,8 @@ const Dashboard = () => {
             <Route path="/" element={<div>Welcome to the Dashboard</div>} />
             {/* <Route path="/content" element={<Content />} /> */}
             <Route path="/users" element={<UsersTable />} />
-            <Route path="/vehicles" element={<VehiclesTable />} />
-            <Route path="/photos" element={<VehiclesPhoto />} />
+            <Route path="/vehicles" element={<VehiclesPhoto />} />
+            <Route path="/bookings" element={<Bookings />} />
           </Routes>
           <Outlet />
         </div>
