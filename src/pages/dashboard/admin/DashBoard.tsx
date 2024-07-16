@@ -18,7 +18,7 @@ const Dashboard = () => {
             {/* <Route path="/content" element={<Content />} /> */}
             <Route path="/users" element={<UsersTable />} />
             <Route path="/vehicles" element={<VehiclesPhoto />} />
-            <Route path="/vehicles/vehicle_details" element={<VehiclesDetails />} />
+            <Route path="/vehicles/:id" element={<VehiclesDetails />} />
             <Route path="/bookings" element={<Bookings />} />
           </Routes>
           <Outlet />

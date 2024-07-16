@@ -128,3 +128,7 @@ export interface Credentials {
     availability: boolean,
     location_id: string
   }
+
+  export interface getVehicleRequest{
+    id?: string | undefined
+  }

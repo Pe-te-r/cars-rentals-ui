@@ -4,7 +4,7 @@ import { useDeleteVehicleMutations, useUpdateVehicleMutation, useVehicleQuery } 
 import DynamicForm from "../../../../components/DynamicForm";
 
 const VehiclesTable=()=>{
-  const {data,refetch, isLoading,isSuccess}= useVehicleQuery(undefined,{pollingInterval:50000})
+  const {data,refetch, isLoading,isSuccess}= useVehicleQuery({id:undefined},{pollingInterval:50000})
   const [vehicles,setVehicles]= useState([])
   const[updateVehicle]= useUpdateVehicleMutation()
   const [deleteVehicle]= useDeleteVehicleMutations()

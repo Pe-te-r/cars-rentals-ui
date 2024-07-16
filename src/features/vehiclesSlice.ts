@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { vehicleResponse } from "../types/types";
+import { getVehicleRequest, vehicleResponse } from "../types/types";
 
 const baseUrl = 'http://localhost:3000/api/'
 
@@ -17,8 +17,8 @@ export const vechiclesApi = createApi({
         }}, 
     ),
     endpoints: (builder) => ({
-        getVehicles: builder.query<any,void>({
-            query: () => 'vehicles',
+        getVehicles: builder.query<any,getVehicleRequest>({
+            query: ({id}) => id? `vehicles/${id} `:'vehicles',
         }),
         updateVehicle: builder.mutation<vehicleResponse,any>({
             query: ({id,...data})=>({
