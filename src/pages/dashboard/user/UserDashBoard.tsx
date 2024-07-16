@@ -2,6 +2,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import Navbar from '../../../components/NavBar';
 import UserSideNav from './UserSideNav';
 import UserProfile from './profile/Profile';
+import VehiclesDetails from './vehicles_display/VehiclesDetails';
 
 const UserDashboard = () => {
   return (
@@ -13,6 +14,7 @@ const UserDashboard = () => {
           <Routes>
             <Route path="/" element={<div>Welcome to User dashboard</div>} />
             <Route path='/profile' element={<UserProfile/>}/>
+            <Route path='/vehicle_details' element={<VehiclesDetails/>}/>
           </Routes>
           <Outlet />
         </div>
