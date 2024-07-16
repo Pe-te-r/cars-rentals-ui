@@ -80,17 +80,13 @@ const Bookings = () => {
   
   useEffect(() => {
     if (isSuccess) {
-      // Assuming data.results is an array of bookings
       const allBookings = data.results || [];
       
-      // Separate bookings into pending and returned
       const pendingBookings = allBookings.filter((booking: any) => booking.status === 'pending');
       const returnedBookings = allBookings.filter((booking: any) => booking.status === 'returned');
       
-      // Concatenate pending and returned bookings
       const orderedBookings = [...pendingBookings, ...returnedBookings];
       
-      // Set state with ordered bookings
       setBookings(orderedBookings);
     }
   }, [isSuccess, data]);

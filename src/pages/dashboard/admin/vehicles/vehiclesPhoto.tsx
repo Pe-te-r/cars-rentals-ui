@@ -1,11 +1,12 @@
 
 import { useState, useEffect } from "react";
 import { useVehicleDetailsQuery } from "../../../../features/vehiclesSlice";
+import { getRandomImage } from "../../images";
 
 const VehiclesPhoto = () => {
     const [vehicles, setVehicles] = useState([]);
     const [expanded, setExpanded] = useState<any>({});
-    const { data, isSuccess, isLoading } = useVehicleDetailsQuery(undefined, { pollingInterval: 10000 });
+    const { data, isSuccess, isLoading } = useVehicleDetailsQuery(undefined, { pollingInterval: 100000 });
 
     useEffect(() => {
         if (isSuccess && data) {
@@ -19,7 +20,7 @@ const VehiclesPhoto = () => {
     };
 
     return (
-        <div className="flex flex-wrap gap-4">
+        <div className="flex h-screen flex-wrap gap-4">
             {isLoading ? (
                 <span className="loading fixed bottom-1/2 right-1/2 loading-ball loading-lg"></span>
             ) : (
@@ -27,7 +28,7 @@ const VehiclesPhoto = () => {
                     <div className="max-w-sm border h-min border-white mx-auto bg-white rounded-lg shadow-md overflow-hidden" key={index}>
                         <img
                             className="w-full h-48 object-cover"
-                            src="https://i.pinimg.com/564x/e6/97/c0/e697c0917344c185ea4a51dd82f61493.jpg"
+                            src={getRandomImage()}
                             alt={`${vehicle['vehicleSpecification'].model} image`}
                         />
                         <div className="p-4 bg-gray-400">
