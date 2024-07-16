@@ -4,12 +4,17 @@ import { useDetails } from "../../../../context/LocalStorageContext";
 import { useFetchOneUserQuery } from "../../../../features/login_slice";
 import { useAuth } from "../../../../context/authContext";
 import CarProfile from "../../../../components/CarProfile";
+import { useState } from "react";
+// import { User } from "../../../../types/types";
+import EditUserModal from "./EditUser";
 
 const UserProfile = () => {
   const navigate=useNavigate()
+  const [userDetails,setUserDetails] =useState<any>()
+  const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false)
   const user = useDetails();
   const {setResponseToast } = useAuth();
-  const { data,isSuccess, isError,isLoading } = useFetchOneUserQuery(user.user?.id!,{refetchOnReconnect:true});
+  const { data,isSuccess,refetch ,isError,isLoading } = useFetchOneUserQuery(user.user?.id!,{refetchOnReconnect:true});
 
   if (isLoading) {
     return<span className="loading fixed top-1/2 left-1/2 loading-dots loading-lg"></span>;
@@ -18,12 +23,33 @@ const UserProfile = () => {
     console.log(data['results']);
   }
 
+  
   const handleLogout =()=>{
     user.clearUserDetail();
     navigate('/')
     setResponseToast({ message: `Sad to see you leave`, type: '' });
 
   }
+  const handleEditClick = () => {
+    setEditModalOpen(true);
+  };
+
+  const handleEdit=()=>{
+    const userInfo: any={
+      id: data['results'].id,
+      name: data['results'].name,
+      email: data['results'].email,
+      contact_phone: data['results'].contact_phone,
+    }
+    setUserDetails(userInfo)
+    handleEditClick()
+
+  }
+
+
+  const handleCloseModal = () => {
+    setEditModalOpen(false);
+  };
   
   return (<>
   {isSuccess? 
@@ -53,7 +79,7 @@ const UserProfile = () => {
         {/* btns logic */}
           <div className="w-full personal-btns mt-3 mb-4 flex">
             <div className="">
-              <button className="buttons btn hover:bg-yellow-800 text-black m-2" >Edit Details</button>
+              <button className="buttons btn hover:bg-yellow-800 text-black m-2" onClick={handleEdit} >Edit Details</button>
             </div>
             <div className="">
               <button className="buttons btn hover:bg-yellow-800 text-black m-2" onClick={handleLogout}>Logout</button>
@@ -100,6 +126,7 @@ const UserProfile = () => {
     </div>
 </div>
 :null}
+<EditUserModal refetch={refetch} isOpen={isEditModalOpen} onClose={handleCloseModal} user={userDetails}/>
 </>
 );
 };

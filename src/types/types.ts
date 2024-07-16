@@ -98,6 +98,7 @@ export interface Credentials {
     contact_phone?: string;
     address?: string;
     password?: string;
+    role?: string;
   };
 
   export interface DeleteUserRequest {
