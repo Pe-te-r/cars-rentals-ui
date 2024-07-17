@@ -14,11 +14,11 @@ export const vechiclesApi = createApi({
                 headers.set('Authorization', `${token}`)
             }
             return headers
-        }}, 
+        }},  
     ),
     endpoints: (builder) => ({
         getVehicles: builder.query<any,getVehicleRequest>({
-            query: ({id}) => id? `vehicles/${id} `:'vehicles',
+            query: ({id,details}) => id && details? `vehicles/${id}?details=true `: `vehicles/${id}`,
         }),
         updateVehicle: builder.mutation<vehicleResponse,any>({
             query: ({id,...data})=>({

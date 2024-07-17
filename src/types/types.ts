@@ -131,4 +131,5 @@ export interface Credentials {
 
   export interface getVehicleRequest{
     id?: string | undefined
+    details? :boolean
   }
