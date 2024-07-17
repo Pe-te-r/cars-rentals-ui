@@ -28,7 +28,6 @@ const VehiclesPhoto = () => {
                         <img
                         height='250px'
                         width='350px'
-                            // className="w-full h-48 object-fit"
                             src={getRandomImage()}
                             alt={`${vehicle['vehicleSpecification'].model} image`}
                             />
@@ -41,7 +40,7 @@ const VehiclesPhoto = () => {
                         <div className="p-4 flex flex-col bg-gray-700">
                             <p className="text-white text-xl mb-2 font-normal font-mono">Location Name: <span className="ml-2 text-gray-400">{vehicle.location.name}</span></p>
                             <p className="text-white text-xl mb-2 font-normal font-mono">Available: <span className="ml-2 text-gray-400">{vehicle['availability'].toString()}</span></p>
-                            <p className="text-white text-xl mb-2 font-normal font-mono">Seating Capacity: <span className="ml-2 text-gray-400">{vehicle['vehicleSpecification'].seating_capacity}</span></p>
+                            <p className="text-white text-xl mb-2 font-normal font-mono">Seating Capacity: <span className="ml-2 text-gray-400">{vehicle.vehicleSpecification.seating_capacity}</span></p>
                         <div className="flex justify-center gap-3">
                             <Link to={`${vehicle.vehicle_id}`}
                                 className="mt-2 font-mono text-lg px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-800 hover:text-gray-400">

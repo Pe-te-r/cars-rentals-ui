@@ -2,23 +2,34 @@ import { Link, useParams } from "react-router-dom";
 import { useVehicleQuery } from "../../../../features/vehiclesSlice";
 import { useEffect, useState } from "react";
 import { getRandomImage } from "../../images";
-import DatePicker from 'react-datepicker';
-import { format } from 'date-fns';
-import 'react-datepicker/dist/react-datepicker.css';
+import { format,differenceInHours } from 'date-fns';
+
+import CalendarComponent from "../../datesHandle/DatesShow";
 
 
 
 const VehiclesDetails = () => {
   const [vehicle,setVehicle]=useState<any>({})
   const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const { id } = useParams();
   const img=getRandomImage()
-  const {data,refetch, isLoading,isSuccess}= useVehicleQuery({id:id,details:true},{pollingInterval:5000})
+  const {data, isLoading,isSuccess}= useVehicleQuery({id:id,details:true},{pollingInterval:5000})
   
-  const handleDateChange = (date: any) => {
-    setStartDate(date);
-    console.log(format(date, 'MMMM do, yyyy'));
+  const calculateDifferenceInHours = () => {
+    if (startDate && endDate) {
+      const diffHours = differenceInHours(endDate, startDate);
+      console.log(`Difference in hours: ${diffHours}`);
+      return diffHours;
+    }
+    return null;
   };
+
+  const calculateAmount=()=>{
+    const hrs = calculateDifferenceInHours()
+    const rate = vehicle.rental_rate
+    return Number(hrs)* parseFloat(rate)
+  }
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -40,18 +51,18 @@ const VehiclesDetails = () => {
             <div className="carInfo flex h-[500px]">
               <div className="carInfoDetails flex text-[1.5rem] text-white rounded-md flex-row bg-gray-800 font-mono w-2/3">
                 <div className="carInfoDetailsContainer p-4 flex flex-col">
+                  <p>Available: <span className="text-gray-400">{vehicle.availability.toString()}</span></p>
                 <p>Location: <span className="text-gray-400">{vehicle.location.name}</span></p>
-                  <p>Contact: <span className="text-gray-400">{vehicle.location.contact}</span></p>
-                  <p>Engine Capacity <span className="text-gray-400">{vehicle.vehicleSpecification.engine_capacity}</span></p>
+                <p>Rental Rate: <span className="text-gray-400">{vehicle.rental_rate}/hr</span></p>
                   <p>Seating Capacity: <span className="text-gray-400">{vehicle.vehicleSpecification.seating_capacity}</span></p>
                   <p>transmission capacity <span className="text-gray-400">{vehicle.vehicleSpecification.transmission_capacity}</span></p>
                 </div>
                 <div className="carInfoDetailsContainer p-2 flex flex-col">
                 <p>Year: <span className="text-gray-400">{vehicle.vehicleSpecification.year}</span></p>
-                  <p>Fuel: <span className="text-gray-400">{vehicle.vehicleSpecification.fuel_type}</span></p>
                   <p>Color:<span className="text-gray-400"> {vehicle.vehicleSpecification.color}</span></p>
+                  <p>Engine Capacity <span className="text-gray-400">{vehicle.vehicleSpecification.engine_capacity}</span></p>
+                  <p>Contact: <span className="text-gray-400">{vehicle.location.contact}</span></p>
                   <p>Fuel: <span className="text-gray-400">{vehicle.vehicleSpecification.fuel_type}</span></p>
-                  <p>Available: <span className="text-gray-400">{vehicle.availability.toString()}</span></p>
                 </div>
               </div>
               <div className="w-1/3 p-1 rounded-md bg-gray-800 flex text-center justify-center ">
@@ -62,49 +73,19 @@ const VehiclesDetails = () => {
             </div>
               :<p>Vehicle details not available</p>}
             { vehicle.availability? 
-                <div className=" bg-gray-800 flex-co flex justify-evenly mt-5 rounded-md p-4 text-[20px] text-gray-200">
-                    <div>
-                      {/* <p>Starting Date: {startDate? startDate: null} </p> */}
-                      <div className="calendar-container p-4 bg-gray-800 rounded-lg shadow-lg">
-      <DatePicker
-        selected={startDate}
-        onChange={handleDateChange}
-        inline
-        calendarClassName="custom-calendar bg-gray-900 text-white"
-        dayClassName={() => 'custom-day hover:bg-yellow-500'}
-        renderCustomHeader={({
-          monthDate,
-          decreaseMonth,
-          increaseMonth,
-          prevMonthButtonDisabled,
-          nextMonthButtonDisabled,
-        }) => (
-          <div className="flex justify-between items-center mb-2">
-            <button
-              onClick={decreaseMonth}
-              disabled={prevMonthButtonDisabled}
-              className="px-2 py-1 bg-gray-700 text-white rounded-lg hover:bg-yellow-500"
-            >
-              {'<'}
-            </button>
-            <span className="text-lg">
-              {monthDate.toLocaleString('default', { month: 'long' })}{' '}
-              {monthDate.getFullYear()}
-            </span>
-            <button
-              onClick={increaseMonth}
-              disabled={nextMonthButtonDisabled}
-              className="px-2 py-1 bg-gray-700 text-white rounded-lg hover:bg-yellow-500"
-            >
-              {'>'}
-            </button>
-          </div>
-        )}
-      />
-    </div>
+                <div className=" bg-gray-800 flex-row flex justify-evenly mt-5 rounded-md p-4 text-[20px] text-gray-200">
+                    <div className="">
+                      <p>Starting Date: {format(startDate,'MMMM do, yyyy')} </p>
+                      <CalendarComponent startDate={startDate} setStartDate={setStartDate}/>
                     </div>
-
-                    <p>Return Date:</p>
+                    <div>
+                      <p>Return Date: {format(endDate,'MMMM do, yyyy')} </p>
+                      <CalendarComponent startDate={endDate} setStartDate={setEndDate}/>
+                    </div>
+                    <div className="flex flex-col justify-evenly font-mono text-[1.6rem]">
+                      <p>Hours of Ride: <span className="font-normal">{calculateDifferenceInHours()}hrs </span></p>
+                      <p>Amount: Kes <span className="font-normal">{calculateAmount()}</span></p>
+                    </div>
                 </div>
 
                 : <p className="text-[2.1rem] text-center mt-5 text-gray-300">Vehicle not available at the moment for booking</p>
