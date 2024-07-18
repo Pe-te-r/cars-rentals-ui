@@ -25,7 +25,7 @@ const VehiclesDetails = () => {
     return null;
   };
 
-  const calculateAmount=()=>{
+  const calculateAmount=(): any=>{
     const hrs = calculateDifferenceInHours()
     const rate = vehicle.rental_rate
     return Number(hrs)* parseFloat(rate)
@@ -74,11 +74,11 @@ const VehiclesDetails = () => {
               :<p>Vehicle details not available</p>}
             { vehicle.availability? 
                 <div className=" bg-gray-800 flex-row flex justify-evenly mt-5 rounded-md p-4 text-[20px] text-gray-200">
-                    <div className="">
+                    <div className="flex flex-col font-mono text-[21px]">
                       <p>Starting Date: {format(startDate,'MMMM do, yyyy')} </p>
                       <CalendarComponent startDate={startDate} setStartDate={setStartDate}/>
                     </div>
-                    <div>
+                    <div className="flex flex-col font-mono text-[21px]">
                       <p>Return Date: {format(endDate,'MMMM do, yyyy')} </p>
                       <CalendarComponent startDate={endDate} setStartDate={setEndDate}/>
                     </div>
@@ -86,8 +86,12 @@ const VehiclesDetails = () => {
                       <p>Hours of Ride: <span className="font-normal">{calculateDifferenceInHours()}hrs </span></p>
                       <p>Amount: Kes <span className="font-normal">{calculateAmount()}</span></p>
                     </div>
+                    {calculateAmount() > 0 ? 
+                    <div className="btn-container flex">
+                      <button className="btn hover:bg-blue-900 bg-blue-800">Book for a ride</button>
+                    </div>
+                    : null}
                 </div>
-
                 : <p className="text-[2.1rem] text-center mt-5 text-gray-300">Vehicle not available at the moment for booking</p>
             }
           </div>) : (null)       
