@@ -1,8 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputDiv from "../../../../components/InputDiv";
 import CustomDropdown from "../../../../components/CustomDropDown";
+import { useGetAllLocationsQuery } from "../../../../features/LocationSlice";
+import { useAuth } from "../../../../context/authContext";
 
 const AddVehicleForm = ({ close, display }: any) => {
+  const {data,isSuccess,isError,error} =useGetAllLocationsQuery()
+  const [locationsNames,setLocatins]=useState([])
+  const{ setResponseToast }=useAuth()
+  if(isError){
+    console.error('Failed to fetch locations', error);
+    return(
+      <p> error</p>
+    )
+  }
+  useEffect(()=>{
+    
+    function createObject(key:string, value: string) {
+      return { label:[key], value:value };
+    }
+
+
+    if(isSuccess){
+      const locationsInfo = data['results']
+      const locationsName = locationsInfo.map((location: any)=> location.name)
+      const locations = locationsName.map((location: any) =>createObject(location,location)   );
+      console.log(` names`,locations[0]);
+      setLocatins(locations)
+      }
+      
+      },[isSuccess,data])
+      
+      console.log(locationsNames)
   const [carDetails, setCarDetails] = useState({
     rental: '',
     availability: "true",
@@ -14,29 +43,34 @@ const AddVehicleForm = ({ close, display }: any) => {
     transmission_capacity: '',
     seating_capacity: '',
     color: '',
-    features: ''
+    features: '',
+    location: 'All',
   });
 
   const handleChange = (key: string, value: string) => {
     console.log(`Changing ${key} to ${value}`);
     setCarDetails((prevDetails) => ({
       ...prevDetails,
-    //   [key]: value,
     [key]: typeof value === 'boolean' ? value : value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if(carDetails.location === 'All'){
+      setResponseToast({ message: `Login failed`, type: 'error' });
+    }
     console.log("User Details:", carDetails);
   };
 
+
+  console.log(carDetails)
 
   return (
     <div>
       {display ?  
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <form className="bg-gray-900 p-8 rounded-lg shadow-lg relative">
+          <form className="bg-gray-900 p-8 rounded-lg shadow-lg relative" onClick={(e:any)=>handleSubmit(e)}>
             <h2 className="font-mono text-[20px] text-center mb-4">Add Car Details for Booking</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div className='m-3 p-2 font-mono rounded-md'>
@@ -125,18 +159,24 @@ const AddVehicleForm = ({ close, display }: any) => {
                   label="Features"
                   placeholder="Features"
                   type="text"
+                  required={false}
                   setData={(value: string) => handleChange('features', value)}
                   value={carDetails.features}
                 />
               </div>
-            <div className='m-3 p-2 font-mono rounded-md'>
-                locations
+            <div className="m-3 p-2 font-mono rounded-md">
+                <label className="block mb-1 text-white">Locations</label>
+                <CustomDropdown
+                  value={carDetails.location}
+                  onChange={(value: any) => handleChange('location', value)}
+                  options={locationsNames}
+                />
             </div>
             <div className="m-3 p-2 font-mono rounded-md">
                 <label className="block mb-1 text-white">Availability</label>
                 <CustomDropdown
                   value={carDetails.availability}
-                  onChange={(value: any) => handleChange('availability', String(value === 'true'))}
+                  onChange={(value: any) => handleChange('availability', value)}
                   options={[
                     { label: 'True', value: 'true' },
                     { label: 'False', value: 'false' },
@@ -148,7 +188,7 @@ const AddVehicleForm = ({ close, display }: any) => {
             </div>
             <div className="flex justify-end gap-4">
               <button className="btn bg-blue-700 text-white px-4 py-2 rounded" onClick={() => close()}>Close</button>
-              <button className="btn bg-blue-700 text-white px-4 py-2 rounded" type="submit" onClick={handleSubmit}>Submit</button>
+              <button className="btn bg-blue-700 text-white px-4 py-2 rounded" type="submit" >Submit</button>
             </div>
           </form>
         </div>
