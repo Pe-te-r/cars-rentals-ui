@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 import { useVehicleDetailsQuery } from "../../../../features/vehiclesSlice";
 import { getRandomImage } from "../../images";
 import { Link } from "react-router-dom";
+import AddVehicleForm from "./addVehicleForm";
 
 const VehiclesPhoto = () => {
     const [vehicles, setVehicles] = useState([]);
+    const [showForm, setShowForm] = useState(false);
     const { data, isSuccess, isLoading } = useVehicleDetailsQuery(undefined, { pollingInterval: 100000 });
 
     useEffect(() => {
@@ -15,10 +17,20 @@ const VehiclesPhoto = () => {
         }
     }, [isSuccess, data]);
 
-   
+    const handleAddVehicleClick = () => {
+        setShowForm(true);
+      };
+
+    const handleCloseForm = () => {
+        setShowForm(false);
+      };
 
     return (
-        <div className="flex  flex-wrap gap-4">
+        <div className="flex  flex-wrap gap-4 relative">
+            <button
+                className="fixed bottom-5 right-5 bg-yellow-600 text-black font-mono text-[21px] px-6 py-4 rounded-full shadow-lg hover:bg-yellow-700 focus:outline-none"
+                    onClick={handleAddVehicleClick}>
+                    Add Vehicle</button>
             {isLoading ? (
                 <span className="loading fixed bottom-1/2 right-1/2 loading-ball loading-lg"></span>
             ) : (
@@ -51,6 +63,7 @@ const VehiclesPhoto = () => {
                     </div>
                 ))
             )}
+            <AddVehicleForm close={handleCloseForm} display={showForm}/>
         </div>
     );
 };
