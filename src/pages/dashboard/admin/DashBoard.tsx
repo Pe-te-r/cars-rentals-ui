@@ -5,6 +5,7 @@ import UsersTable from './users/Users';
 import VehiclesPhoto from './vehicles/vehiclesPhoto';
 import Bookings from './bookings/Bookings';
 import VehiclesDetails from '../user/vehicles_display/VehiclesDetails';
+import Locations from './Locations/Locations';
 
 const Dashboard = () => {
   return (
@@ -20,6 +21,7 @@ const Dashboard = () => {
             <Route path="/vehicles" element={<VehiclesPhoto />} />
             <Route path="/vehicles/:id" element={<VehiclesDetails />} />
             <Route path="/bookings" element={<Bookings />} />
+            <Route path="/locations" element={<Locations />} />
           </Routes>
           <Outlet />
         </div>
