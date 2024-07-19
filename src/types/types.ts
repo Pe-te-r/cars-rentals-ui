@@ -134,3 +134,18 @@ export interface Credentials {
     id?: string | undefined
     details? :boolean
   }
+
+  export interface initialCarDetailsTypes{
+    rental: string,
+      availability: string,
+      manufacturer:string,
+      model: string,
+      year:string,
+      fuel_type: string,
+      engine_capacity: string,
+      transmission_capacity: string,
+      seating_capacity: string,
+      color: string,
+      features: string,
+      location: string,
+  }

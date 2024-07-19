@@ -5,35 +5,12 @@ import { useGetAllLocationsQuery } from "../../../../features/LocationSlice";
 import { useAuth } from "../../../../context/authContext";
 
 const AddVehicleForm = ({ close, display }: any) => {
-  const {data,isSuccess,isError,error} =useGetAllLocationsQuery()
+  const {data,isSuccess} =useGetAllLocationsQuery()
   const [locationsNames,setLocatins]=useState([])
   const{ setResponseToast }=useAuth()
-  if(isError){
-    console.error('Failed to fetch locations', error);
-    return(
-      <p> error</p>
-    )
-  }
-  useEffect(()=>{
-    
-    function createObject(key:string, value: string) {
-      return { label:[key], value:value };
-    }
+const initialCarDetails={
 
-
-    if(isSuccess){
-      const locationsInfo = data['results']
-      const locationsName = locationsInfo.map((location: any)=> location.name)
-      const locations = locationsName.map((location: any) =>createObject(location,location)   );
-      console.log(` names`,locations[0]);
-      setLocatins(locations)
-      }
-      
-      },[isSuccess,data])
-      
-      console.log(locationsNames)
-  const [carDetails, setCarDetails] = useState({
-    rental: '',
+    rental: null,
     availability: "true",
     manufacturer: '',
     model: '',
@@ -45,7 +22,25 @@ const AddVehicleForm = ({ close, display }: any) => {
     color: '',
     features: '',
     location: 'All',
-  });
+
+}
+  useEffect(()=>{
+    
+    function createObject(key:string, value: string) {
+      return { label:[key], value:value };
+    }
+
+
+    if(isSuccess){
+      const locationsInfo = data['results']
+      const locationsName = locationsInfo.map((location: any)=> location.name)
+      const locations = locationsName.map((location: any) =>createObject(location,location)   );
+      setLocatins(locations)
+      }
+      
+      },[isSuccess,data])
+  const [carDetails, setCarDetails] = useState(initialCarDetails);
+
 
   const handleChange = (key: string, value: string) => {
     console.log(`Changing ${key} to ${value}`);
@@ -56,11 +51,15 @@ const AddVehicleForm = ({ close, display }: any) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault(); 
     if(carDetails.location === 'All'){
-      setResponseToast({ message: `Login failed`, type: 'error' });
+      setResponseToast({ message: `Location cannot be all`, type: '' });
+    }else{
+      close()
+      console.log("User Details:", carDetails);
+      setCarDetails(initialCarDetails)
     }
-    console.log("User Details:", carDetails);
+    
   };
 
 
@@ -70,7 +69,7 @@ const AddVehicleForm = ({ close, display }: any) => {
     <div>
       {display ?  
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <form className="bg-gray-900 p-8 rounded-lg shadow-lg relative" onClick={(e:any)=>handleSubmit(e)}>
+          <form className="bg-gray-900 p-8 rounded-lg shadow-lg relative" onSubmit={handleSubmit}>
             <h2 className="font-mono text-[20px] text-center mb-4">Add Car Details for Booking</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
               <div className='m-3 p-2 font-mono rounded-md'>
@@ -187,8 +186,8 @@ const AddVehicleForm = ({ close, display }: any) => {
 
             </div>
             <div className="flex justify-end gap-4">
-              <button className="btn bg-blue-700 text-white px-4 py-2 rounded" onClick={() => close()}>Close</button>
-              <button className="btn bg-blue-700 text-white px-4 py-2 rounded" type="submit" >Submit</button>
+              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" onClick={() => close()}>Close</button>
+              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" type="submit" >Submit</button>
             </div>
           </form>
         </div>
