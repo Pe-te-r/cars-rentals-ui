@@ -18,7 +18,7 @@ const CustomDropdown = ({ value, onChange, options,height }: any) => {
         <span className="ml-2">&#9662;</span> {/* Dropdown arrow */}
       </button>
       {isOpen && (
-        <ul className={`absolute top-full overflow-auto ${height} h-min left-0 w-full bg-gray-700 border border-gray-600 mt-1 rounded shadow-lg`}>
+        <ul className={`absolute top-full overflow-auto ${height} left-0 w-full bg-gray-700 border border-gray-600 mt-1 rounded shadow-lg`}>
           {options.map((option: any) => (
             <li
               key={option.value}

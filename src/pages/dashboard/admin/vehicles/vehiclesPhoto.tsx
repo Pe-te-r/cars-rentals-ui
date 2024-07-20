@@ -8,7 +8,7 @@ import AddVehicleForm from "./addVehicleForm";
 const VehiclesPhoto = () => {
     const [vehicles, setVehicles] = useState([]);
     const [showForm, setShowForm] = useState(false);
-    const { data, isSuccess, isLoading } = useVehicleDetailsQuery(undefined, { pollingInterval: 100000 });
+    const { data, isSuccess, isLoading } = useVehicleDetailsQuery(undefined, { pollingInterval: 6000 });
 
     useEffect(() => {
         if (isSuccess && data) {

@@ -5,13 +5,14 @@ import { useGetAllLocationsQuery } from "../../../../features/LocationSlice";
 import { useAuth } from "../../../../context/authContext";
 import { useAddVehicleMutation } from "../../../../features/vehiclesSlice";
 
-const AddVehicleForm = ({ close, display }: any) => {
-  const {data,isSuccess} =useGetAllLocationsQuery()
+const AddVehicleForm = ({ close,display }: any) => {
+  const {data,isSuccess} =useGetAllLocationsQuery(undefined,{pollingInterval:4000})
+  const [addVehicle,{isLoading}] = useAddVehicleMutation()
   const [locationsNames,setLocatins]=useState([])
   const{ setResponseToast }=useAuth()
 const initialCarDetails={
 
-    rental: null,
+    rental: '',
     availability: "true",
     manufacturer: '',
     model: '',
@@ -34,8 +35,13 @@ const initialCarDetails={
 
     if(isSuccess){
       const locationsInfo = data['results']
-      const locationsName = locationsInfo.map((location: any)=> location.name)
-      const locations = locationsName.map((location: any) =>createObject(location,location)   );
+      // console.log(`locations Details:`, locationsInfo)
+      const locationsName = locationsInfo.map((location: any)=> 
+        { 
+          return({name:location.name,id:location.id})
+        }
+    )
+      const locations = locationsName.map((location: any) =>createObject(location.name,location.id)   );
       setLocatins(locations)
       }
       
@@ -56,17 +62,17 @@ const initialCarDetails={
     if(carDetails.location === 'All'){
       setResponseToast({ message: `Location cannot be all`, type: '' });
     }else{
-      const [addVehicle] = useAddVehicleMutation()
-      close()
-      console.log("User Details:", carDetails);
       addVehicle(carDetails)
       setCarDetails(initialCarDetails)
+      if(!isLoading){
+        close()
+      }
     }
     
   };
 
 
-  console.log(carDetails)
+  // console.log(carDetails)
 
   return (
     <div>
@@ -191,7 +197,7 @@ const initialCarDetails={
             </div>
             <div className="flex justify-end gap-4">
               <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" onClick={() => close()}>Close</button>
-              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" type="submit" >Submit</button>
+              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" type="submit" >{isLoading ? <span className="loading loading-spinner loading-xs"></span> : "Submit"}</button>
             </div>
           </form>
         </div>
