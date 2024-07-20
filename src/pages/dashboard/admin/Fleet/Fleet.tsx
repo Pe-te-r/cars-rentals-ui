@@ -35,7 +35,7 @@ const Fleet = () => {
       </tr>
     </thead>
     <tbody >
-        {fleetDetails.map((item: any,index)=>(
+        {isSuccess && fleetDetails.map((item: any,index)=>(
             <tr key={index} className="bg-gray-800">
                 <td>{index+1}</td>
                 <td>{item.vehicle.vehicleSpecification.manufacturer} {" "} {item.vehicle.vehicleSpecification.model}</td>

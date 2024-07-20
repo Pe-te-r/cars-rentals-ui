@@ -3,6 +3,7 @@ import InputDiv from "../../../../components/InputDiv";
 import CustomDropdown from "../../../../components/CustomDropDown";
 import { useGetAllLocationsQuery } from "../../../../features/LocationSlice";
 import { useAuth } from "../../../../context/authContext";
+import { useAddVehicleMutation } from "../../../../features/vehiclesSlice";
 
 const AddVehicleForm = ({ close, display }: any) => {
   const {data,isSuccess} =useGetAllLocationsQuery()
@@ -55,8 +56,10 @@ const initialCarDetails={
     if(carDetails.location === 'All'){
       setResponseToast({ message: `Location cannot be all`, type: '' });
     }else{
+      const [addVehicle] = useAddVehicleMutation()
       close()
       console.log("User Details:", carDetails);
+      addVehicle(carDetails)
       setCarDetails(initialCarDetails)
     }
     

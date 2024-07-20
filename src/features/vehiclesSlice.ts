@@ -35,6 +35,13 @@ export const vechiclesApi = createApi({
         }),
         getVehiclesDetails: builder.query<any,void>({
             query: () => 'vehicles?details=true',
+        }),
+        addVehicleDetails: builder.mutation<any,any>({
+            query:(newVehicle)=>({
+                url:'vehicles',
+                method: 'POST',
+                body: newVehicle
+            })
         })
         
     })
@@ -45,6 +52,7 @@ type useVehicleQuery = typeof vechiclesApi.endpoints.getVehicles.useQuery
 type useVehicleDetails = typeof vechiclesApi.endpoints.getVehiclesDetails.useQuery
 type useDeleteVehicleMutations=typeof vechiclesApi.endpoints.deleteVehicle.useMutation
 type useUpdateVehicleMutation=typeof vechiclesApi.endpoints.updateVehicle.useMutation
+type addVehicleMutation=typeof vechiclesApi.endpoints.addVehicleDetails.useMutation
 
 
 
@@ -52,3 +60,4 @@ export const useVehicleQuery: useVehicleQuery = vechiclesApi.endpoints.getVehicl
 export const useVehicleDetailsQuery: useVehicleDetails = vechiclesApi.endpoints.getVehiclesDetails.useQuery
 export const useDeleteVehicleMutations: useDeleteVehicleMutations = vechiclesApi.endpoints.deleteVehicle.useMutation
 export const useUpdateVehicleMutation: useUpdateVehicleMutation = vechiclesApi.endpoints.updateVehicle.useMutation
+export const useAddVehicleMutation: addVehicleMutation = vechiclesApi.endpoints.addVehicleDetails.useMutation
