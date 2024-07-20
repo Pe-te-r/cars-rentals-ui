@@ -11,6 +11,7 @@ const SideNav = ({ className }: { className?: string }) => {
         <Link to="/admin/vehicles" className="py-2 px-4 rounded hover:bg-yellow-500 hover:text-gray-900">Vehicles</Link>
         <Link to="/admin/bookings" className="py-2 px-4 rounded hover:bg-yellow-500 hover:text-gray-900">Bookings</Link>
         <Link to="/admin/locations" className="py-2 px-4 rounded hover:bg-yellow-500 hover:text-gray-900 mt-auto bottom-0">Locations</Link>
+        <Link to="/admin/fleets" className="py-2 px-4 rounded hover:bg-yellow-500 hover:text-gray-900 mt-auto bottom-0">Fleet</Link>
         <Link to="/admin/settings" className="py-2 px-4 rounded hover:bg-yellow-500 hover:text-gray-900">Settings</Link>
         <Link to="/admin/profile" className="py-2 px-4 rounded hover:bg-yellow-500 hover:text-gray-900 mt-auto bottom-0">Profile</Link>
       </nav>

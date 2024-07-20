@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const CustomDropdown = ({ value, onChange, options }: any) => {
+const CustomDropdown = ({ value, onChange, options,height }: any) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (option: any) => {
@@ -10,7 +10,7 @@ const CustomDropdown = ({ value, onChange, options }: any) => {
 
   return (
     <div className="relative">
-      <button
+      <button type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full px-3 py-2 border border-gray-700 rounded bg-gray-700 text-white focus:outline-none flex justify-between items-center"
       >
@@ -18,7 +18,7 @@ const CustomDropdown = ({ value, onChange, options }: any) => {
         <span className="ml-2">&#9662;</span> {/* Dropdown arrow */}
       </button>
       {isOpen && (
-        <ul className="absolute top-full overflow-auto h-[100px] left-0 w-full bg-gray-700 border border-gray-600 mt-1 rounded shadow-lg">
+        <ul className={`absolute top-full overflow-auto ${height} h-min left-0 w-full bg-gray-700 border border-gray-600 mt-1 rounded shadow-lg`}>
           {options.map((option: any) => (
             <li
               key={option.value}

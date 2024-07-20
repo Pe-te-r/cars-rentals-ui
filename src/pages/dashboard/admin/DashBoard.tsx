@@ -6,6 +6,8 @@ import VehiclesPhoto from './vehicles/vehiclesPhoto';
 import Bookings from './bookings/Bookings';
 import VehiclesDetails from '../user/vehicles_display/VehiclesDetails';
 import Locations from './Locations/Locations';
+import Fleet from './Fleet/Fleet';
+import FleetDetails from './Fleet/FleetDetails';
 
 const Dashboard = () => {
   return (
@@ -22,6 +24,8 @@ const Dashboard = () => {
             <Route path="/vehicles/:id" element={<VehiclesDetails />} />
             <Route path="/bookings" element={<Bookings />} />
             <Route path="/locations" element={<Locations />} />
+            <Route path="/fleets" element={<Fleet />} />
+            <Route path="/fleets/:id" element={<FleetDetails />} />
           </Routes>
           <Outlet />
         </div>

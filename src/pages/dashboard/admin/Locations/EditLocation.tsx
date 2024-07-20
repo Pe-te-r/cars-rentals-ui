@@ -53,8 +53,8 @@ const EditLocation = ({ close, refetch, values}: any) => {
                     />
                 </div>
                 <div className="m-4 p-2"> 
-                    <button className="btn bg-blue-800 mr-4" onClick={close}>Close</button>
-                    <button className="btn bg-blue-800 ml-4" type="submit">{isLoading ?<span className="loading loading-spinner loading-xs"></span> : 'Add'}</button>
+                    <button className="btn bg-blue-800 mr-4 hover:bg-blue-900" onClick={close}>Close</button>
+                    <button className="btn bg-blue-800 ml-4 hover:bg-blue-900" type="submit">{isLoading ?<span className="loading loading-spinner loading-xs"></span> : 'Add'}</button>
                 </div>
             </form>            
         </div>

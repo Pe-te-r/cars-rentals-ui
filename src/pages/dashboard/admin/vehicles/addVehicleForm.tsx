@@ -166,6 +166,7 @@ const initialCarDetails={
             <div className="m-3 p-2 font-mono rounded-md">
                 <label className="block mb-1 text-white">Locations</label>
                 <CustomDropdown
+                  height={'h-[180px]'}
                   value={carDetails.location}
                   onChange={(value: any) => handleChange('location', value)}
                   options={locationsNames}
