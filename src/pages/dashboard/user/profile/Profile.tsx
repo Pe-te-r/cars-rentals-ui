@@ -5,7 +5,6 @@ import { useFetchOneUserQuery } from "../../../../features/login_slice";
 import { useAuth } from "../../../../context/authContext";
 import CarProfile from "../../../../components/CarProfile";
 import { useState } from "react";
-// import { User } from "../../../../types/types";
 import EditUserModal from "./EditUser";
 
 const UserProfile = () => {
@@ -58,7 +57,7 @@ const UserProfile = () => {
 
             <div className="avatar online m-3">
                 <div className="w-24 rounded-full">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                <img src="https://avatars.githubusercontent.com/u/106557118?v=4" />
             </div>
         </div>
     </div>
@@ -66,7 +65,7 @@ const UserProfile = () => {
         <h1 className="text-center text-white w-4/5 font-bold font-serif font-bold  text-[2.1rem]">Welcome <span className="italic  ml-2">{data['results'].name}</span></h1> 
         <div className="w-full flex flex-col  justify-center items-center"> 
             {/* personal info */}
-          <div className="personal-details w-full flex relative p-2 mb-3 rounded-md">
+          <div className=" w-full flex relative p-2 mb-3 rounded-md">
             <div className="mr-3 card-info p-2">
                 <p className="text-[1.5rem] mt-2 mb-2 text-white  font-san pt-2  text-gray-500">Name: <span className="text-gray-300"> {data['results'].name}</span></p>
                 <p className="text-[1.5rem] mt-2 mb-2 text-white  font-san pt-2  text-gray-500">Email: <span className="text-gray-300"> {data['results'].email}</span></p>
@@ -77,7 +76,7 @@ const UserProfile = () => {
             </div>
           </div>
         {/* btns logic */}
-          <div className="w-full personal-btns mt-3 mb-4 flex">
+          <div className="w-full mt-3 mb-4 flex">
             <div className="">
               <button className="buttons btn hover:bg-yellow-800 text-black m-2" onClick={handleEdit} >Edit Details</button>
             </div>
@@ -93,10 +92,10 @@ const UserProfile = () => {
             <h3 className="text-center text-white font-mono font-bold text-[2.1rem]">Your Support tickets</h3>
           <div className="w-full flex flex-row flex-wrap rounded-md">
             {data['results']['customerSupportTickets'].map((ticket: any,index:number)=>(
-                <div key={index} className="flex m-2 w-max card-info rounded-md flex-col gap-2 w-max p-4">
-                    <p className="text-white" >Subject: <span  className="text-white ">{ticket['subject']}</span></p>
-                    <p className="text-white" >Description: <span className="text-white">{ticket['description']}</span></p>
-                    <p  className="text-white">Status: <span className="text-white">{ticket['status']}</span></p>
+                <div key={index} className="flex m-2 font-mono text-[20px] w-max card-info rounded-md flex-col gap-2 w-max p-4">
+                    <p className="text-white" >Subject: <span  className="text-gray-400 ">{ticket['subject']}</span></p>
+                    <p className="text-white" >Description: <span className="text-gray-400">{ticket['description']}</span></p>
+                    <p  className="text-white">Status: <span className="text-gray-400">{ticket['status']}</span></p>
                     {ticket['status'] === 'pending'? 
                     <div className="mt-3">
                       <button className="buttons btn hover:bg-yellow-800 text-black"> Edit</button>
@@ -125,7 +124,7 @@ const UserProfile = () => {
         </div>
     </div>
 </div>
-:null}
+:isError? <h2>Error occured</h2>: null}
 <EditUserModal refetch={refetch} isOpen={isEditModalOpen} onClose={handleCloseModal} user={userDetails}/>
 </>
 );

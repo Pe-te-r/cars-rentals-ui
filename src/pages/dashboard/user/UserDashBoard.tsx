@@ -3,6 +3,8 @@ import Navbar from '../../../components/NavBar';
 import UserSideNav from './UserSideNav';
 import UserProfile from './profile/Profile';
 import VehiclesDetails from './vehicles_display/VehiclesDetails';
+import Settings from './UserSettings/settings';
+
 
 const UserDashboard = () => {
   return (
@@ -14,6 +16,7 @@ const UserDashboard = () => {
           <Routes>
             <Route path="/" element={<div>Welcome to User dashboard</div>} />
             <Route path='/profile' element={<UserProfile/>}/>
+            <Route path='/settings' element={<Settings/>}/>
             <Route path='/vehicle_details' element={<VehiclesDetails/>}/>
           </Routes>
           <Outlet />
