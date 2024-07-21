@@ -194,11 +194,11 @@ const VehiclesDetails = () => {
   }, [startDate, endDate]);
 
   return (
-    <>
+    <div>
       {isLoading ? (
         <span className="fixed left-1/2 top-1/2 loading loading-spinner text-primary"></span>
       ) : isSuccess ? (
-        <div className="bg-gray-600 p-5 h-screen">
+        <div className="bg-gray-800 p-5 ">
           <Link to="/admin/vehicles" className="btn">Back</Link>
           {vehicle.vehicleSpecification ? (
             <>
@@ -271,7 +271,7 @@ const VehiclesDetails = () => {
           )}
         </div>
       ) : null}
-    </>
+    </div>
   );
 };
 

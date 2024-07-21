@@ -180,6 +180,7 @@ const CalendarComponent: React.FC<CalendarComponentProps> = ({
         selected={startDate}
         onChange={handleStartDateChange}
         inline
+        disabled
         minDate={today}
         maxDate={endDate}
         calendarClassName="custom-calendar"
