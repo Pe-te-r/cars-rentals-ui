@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputDiv from "../components/InputDiv";
+import { useDetails } from "../context/LocalStorageContext";
+import { useCreateSupportMutation } from "../features/messageSlice";
+import { useAuth } from "../context/authContext";
 
 const ContactPage = ({ isOpen, closeModal }: { isOpen: boolean; closeModal: () => void }) => {
+  const {user} =useDetails()
+  const {setResponseToast} =useAuth()
+  const [sendData,{data,isLoading,isSuccess}]=useCreateSupportMutation()
+  const [response,setResponse]= useState('')
   const [message, setMessage] = useState({
+    user_id:user?.id,
     subject: '',
-    message: ''
+    description: ''
   });
 
   const handleChange = (field: keyof typeof message, value: any) => {
@@ -13,10 +21,16 @@ const ContactPage = ({ isOpen, closeModal }: { isOpen: boolean; closeModal: () =
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle form submission here
-    console.log(message);
-    // Optionally clear the form or close the modal
+    sendData(message)
   };
+  useEffect(()=>{
+    if(isSuccess){
+      if(data['result'].trim()=='success'){
+        setResponseToast({ message: `Support sent successfully!`, type:'success' });
+        closeModal();
+      }
+    }
+  },[data,isSuccess]);
 
   if (!isOpen) return null;
 
@@ -50,8 +64,8 @@ const ContactPage = ({ isOpen, closeModal }: { isOpen: boolean; closeModal: () =
                     name="message"
                     rows={4}
                     required
-                    value={message.message}
-                    onChange={(e) => handleChange('message', e.target.value)}
+                    value={message.description}
+                    onChange={(e) => handleChange('description', e.target.value)}
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-white bg-gray-800 rounded-b-md focus:outline-none focus:ring-yellow-500 focus:border-yellow-500 focus:z-10 sm:text-sm"
                     placeholder="Your message"
                   ></textarea>
@@ -62,7 +76,9 @@ const ContactPage = ({ isOpen, closeModal }: { isOpen: boolean; closeModal: () =
                     type="submit"
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-900 bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500"
                   >
-                    Submit
+                    {!isLoading?
+                      'Submit':!isSuccess&& <span className="loading loading-spinner loading-sm"></span>
+                      }
                   </button>
                 </div>
               </form>

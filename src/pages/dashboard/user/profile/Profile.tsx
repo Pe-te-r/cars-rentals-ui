@@ -13,14 +13,12 @@ const UserProfile = () => {
   const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false)
   const user = useDetails();
   const {setResponseToast } = useAuth();
-  const { data,isSuccess,refetch ,isError,isLoading } = useFetchOneUserQuery(user.user?.id!,{refetchOnReconnect:true});
+  const { data,isSuccess,refetch ,isError,isLoading } = useFetchOneUserQuery(user.user?.id!,{refetchOnReconnect:true,pollingInterval:10000});
 
   if (isLoading) {
     return<span className="loading fixed top-1/2 left-1/2 loading-dots loading-lg"></span>;
   }
-  if(isSuccess){
-    console.log(data['results']);
-  }
+
 
   
   const handleLogout =()=>{
