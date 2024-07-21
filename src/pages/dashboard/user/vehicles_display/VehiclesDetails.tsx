@@ -121,8 +121,10 @@ import { useVehicleQuery } from '../../../../features/vehiclesSlice';
 import { format, differenceInHours } from 'date-fns';
 import CalendarComponent from '../../datesHandle/DatesShow';
 import { getRandomImage } from '../../images';
+import { useDetails } from '../../../../context/LocalStorageContext';
 
 const VehiclesDetails = () => {
+  const {user}= useDetails()
   const [vehicle, setVehicle] = useState<any>({});
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -193,13 +195,20 @@ const VehiclesDetails = () => {
     validateBooking();
   }, [startDate, endDate]);
 
+  const to = user?.role == 'admin' ? "/admin/vehicles" : "/dashboard/vehicles"
+
   return (
     <div>
       {isLoading ? (
         <span className="fixed left-1/2 top-1/2 loading loading-spinner text-primary"></span>
       ) : isSuccess ? (
         <div className="bg-gray-800 p-5 ">
-          <Link to="/admin/vehicles" className="btn">Back</Link>
+          {/* {
+            user?.role === 'admin'?
+            <Link to="/admin/vehicles" className="btn">Back</Link>
+            :
+            } */}
+            <Link to={to} className="btn bg-blue-800 hover:bg-blue-900">Back</Link>
           {vehicle.vehicleSpecification ? (
             <>
               <h3 className="text-center text-white p-2 font-mono text-[28px] font-bold">

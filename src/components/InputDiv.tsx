@@ -2,8 +2,8 @@ import { InputDivTypes } from "../types/types"
 
 const InputDiv = ({label,type,placeholder,setData,value,icon,required=true,readOnly=false}:InputDivTypes) => {
   return (
-    <div>
-              <label className="block mb-1 text-white"><span className="flex items-center ">{icon}{label}</span></label>
+    <div className="flex flex-col">
+              <label className="mb-5 text-white"><span className="flex items-center text-center ">{icon}{label}</span></label>
               <input
                 type={type}
                 required={required}

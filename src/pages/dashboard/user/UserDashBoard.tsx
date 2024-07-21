@@ -11,7 +11,7 @@ const UserDashboard = () => {
   return (
     <div className='dashboardDiv '>
       <Navbar />
-      <div className="flex h-screen">
+      <div className="flex min-h-screen h-auto">
         <UserSideNav className="" />
         <div className="flex-1 overflow-y-auto p-4 ml-2">
           <Routes>
@@ -19,7 +19,7 @@ const UserDashboard = () => {
             <Route path='/profile' element={<UserProfile/>}/>
             <Route path='/settings' element={<Settings/>}/>
             <Route path='/vehicles' element={<VehiclesPhoto/>}/>
-            <Route path='/vehicle_details' element={<VehiclesDetails/>}/>
+            <Route path='/vehicles/:id' element={<VehiclesDetails/>}/>
           </Routes>
           <Outlet />
         </div>

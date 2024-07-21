@@ -15,7 +15,7 @@ const Dashboard = () => {
       <Navbar />
       <div className="flex ">
         <SideNav className="" />
-        <div className="flex-1 p-4 ml-2">
+        <div className="flex-1 min-h-screen h-auto p-4 ml-2">
           <Routes>
             <Route path="/" element={<div>Welcome to the Dashboard</div>} />
             {/* <Route path="/content" element={<Content />} /> */}

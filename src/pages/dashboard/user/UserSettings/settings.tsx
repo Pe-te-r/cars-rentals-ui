@@ -1,6 +1,12 @@
 import { useDetails } from "../../../../context/LocalStorageContext"
 import InputDiv from "../../../../components/InputDiv"
 import { useState } from "react"
+import { FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { MdOutlineContactPhone } from "react-icons/md";
+import { FaLock } from "react-icons/fa";
+
+
 
 const Settings = () => {
     const {user} = useDetails()
@@ -40,22 +46,22 @@ const Settings = () => {
     return (
         <div className="bg-gray-800 text-[22px]">
             <h1 className="w-min mx-auto text-center font-bold text-[30px] border-b">Settings</h1>
-            <div className="w-full gap-3 justify-evenly  flex p-3">
+            <div className="w-full gap-3 mt-3 justify-evenly  flex p-3">
                 <div className="flex w-1/3 flex-col font-mono">
-                    <InputDiv label="Name" placeholder="" setData={(value:string)=>handleChange('name',value)} value={userDetails.name} type="text" readOnly={readOnly} />
+                    <InputDiv label="Name" placeholder="" setData={(value:string)=>handleChange('name',value)} icon={<FaUser size={30} className="mr-2"/>} value={userDetails.name} type="text" readOnly={readOnly} />
                 </div>
                 <div className="flex w-1/3 flex-col font-mono">
-                    <InputDiv label="Email" placeholder="" setData={(value:string)=>handleChange('email',value)} value={userDetails?.email} type="email" readOnly={readOnly} />
+                    <InputDiv label="Email" placeholder="" setData={(value:string)=>handleChange('email',value)} icon={<MdEmail size={30} className="mr-2"/>} value={userDetails?.email} type="email" readOnly={readOnly} />
                 </div>
                 <div className="flex w-1/3 flex-col font-mono">
-                    <InputDiv label="Contact" placeholder="" setData={(value: string)=> handleChange('contact_phone',value)} value={userDetails?.contact_phone} type="number" readOnly={readOnly} />
+                    <InputDiv label="Contact" placeholder="" setData={(value: string)=> handleChange('contact_phone',value)} icon={<MdOutlineContactPhone size={36} className="mr-2"/>} value={userDetails?.contact_phone} type="number" readOnly={readOnly} />
                 </div>
             </div>
             <div className="flex gap-3 p-3">
                 {Password ?
                 <>
                     <div className="flex w-1/3 flex-col font-mono">
-                        <InputDiv label="Password" placeholder="" setData={(value: string)=> handlePasswordChange(value)} value={passwordValue} type="password" />
+                        <InputDiv label="Password" placeholder="" setData={(value: string)=> handlePasswordChange(value)} icon={<FaLock size={30} className="mr-2"/>} value={passwordValue} type="password" />
                     </div>
                     <div className="flex w-1/3 flex-col font-mono">
                         <InputDiv label="Code" placeholder="" setData={(value: string)=> handleCodeChange(value)} value={code} type="text" />
