@@ -16,16 +16,16 @@ if(userData){
   userJson =JSON.parse(userData ) || {};
 }
 let isAdmin = false
-if(userJson.role === 'admin'){
+if(userData && userJson.role === 'admin'){
   isAdmin = true
 }
 
 const routes = createBrowserRouter([
   { path: '/', element: <Home /> },
   { path: 'service', element: <Service /> },
-  { path: 'about', element:(<ProtectedRoute element={ About } isAuthenticated={true}/>) },
-  { path: 'admin/*', element: (<ProtectedRoute element={Dashboard} isAuthenticated={userJson?.login} isAdmin={isAdmin}/>) },
-  { path: 'dashboard/*', element:(<ProtectedRoute element={UserDashboard } isAuthenticated={userJson?.login}/>) },
+  { path: 'about', element:(<ProtectedRoute element={ About }/>) },
+  { path: 'admin/*', element: (<ProtectedRoute element={Dashboard} role='admin'/>) },
+  { path: 'dashboard/*', element:(<ProtectedRoute element={UserDashboard } role='user'/>) },
   { path: '*', element: <h1>Page Not Found</h1> },
 ]);
 // const isAuthenticated = true;

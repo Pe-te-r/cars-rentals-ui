@@ -7,6 +7,7 @@ import { useDetails } from '../context/LocalStorageContext';
 import AuthController from '../pages/auth/authComponent';
 import { VscAccount } from "react-icons/vsc";
 import { IoHome } from "react-icons/io5";
+import { TbMessage2 } from "react-icons/tb";
 
 
 
@@ -51,7 +52,10 @@ const Navbar = () => {
               className="text-gray-300 font-medium py-2 px-4 rounded focus:outline-none hover:bg-yellow-500 hover:text-gray-900"
               onClick={openModal}
             >
+              <span className='flex items-center'>
+              <TbMessage2 className='mr-2' size={21}/>
               Contact Us
+              </span>
             </button>}
             {user ? 
             <>

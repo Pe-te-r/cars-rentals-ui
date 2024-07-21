@@ -40,7 +40,7 @@ const VehiclesPhoto = () => {
                 <span className="loading fixed bottom-1/2 right-1/2 loading-ball loading-lg"></span>
             ) : (
                 vehicles.map((vehicle: any, index) => (
-                    <div className="mx-auto flex rounded-md flex-col z-20 rounded-lg " key={index}>
+                    <div className="mx-auto flex rounded-md flex-col rounded-lg " key={index}>
                         <div className="bg-white">
                         <img
                         height='250px'
