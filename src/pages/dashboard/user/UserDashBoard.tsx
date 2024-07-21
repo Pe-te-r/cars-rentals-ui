@@ -4,6 +4,7 @@ import UserSideNav from './UserSideNav';
 import UserProfile from './profile/Profile';
 import VehiclesDetails from './vehicles_display/VehiclesDetails';
 import Settings from './UserSettings/settings';
+import VehiclesPhoto from '../admin/vehicles/vehiclesPhoto';
 
 
 const UserDashboard = () => {
@@ -17,6 +18,7 @@ const UserDashboard = () => {
             <Route path="/" element={<div>Welcome to User dashboard</div>} />
             <Route path='/profile' element={<UserProfile/>}/>
             <Route path='/settings' element={<Settings/>}/>
+            <Route path='/vehicles' element={<VehiclesPhoto/>}/>
             <Route path='/vehicle_details' element={<VehiclesDetails/>}/>
           </Routes>
           <Outlet />

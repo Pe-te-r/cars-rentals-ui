@@ -79,7 +79,8 @@ const Settings = () => {
                     {readOnly? 'Edit Details' : 'Save Details'}
                 </button>
                 <button onClick={toggleEditPassword} className={`px-6 py-3 text-white border-none bg-blue-500 rounded hover:bg-blue-600 transition-all duration-300}`}>
-                    Reset Password
+                    {!Password ? 'Reset Password' : 'Save Password' }
+                    
                 </button>
             </div>
         </div>

@@ -106,7 +106,7 @@
 // export default UsersTableContainer;
 
 import { useState } from 'react';
-import { useDeleteUserMutation, useFetchAllUsersQuery, useUpdateUserMutation, useRegisterMutation } from '../../../../features/login_slice';
+import { useDeleteUserMutation, useFetchAllUsersQuery, useUpdateUserMutation } from '../../../../features/login_slice';
 import DynamicTable from '../../../../components/Table';
 import { User } from '../../../../types/types';
 import DynamicForm from '../../../../components/DynamicForm';

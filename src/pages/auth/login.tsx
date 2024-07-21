@@ -33,6 +33,7 @@ const Login = () => {
               name: response.name,
               email: response.email,
               login: true,
+              role: response.role,
               contact_phone: response.contact_phone,
               token: response.token,
             }

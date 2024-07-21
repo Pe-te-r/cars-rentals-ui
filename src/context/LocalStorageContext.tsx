@@ -6,6 +6,7 @@ interface UserDetails {
   name: string;
   email: string;
   login: boolean;
+  role: string;
   contact_phone: string;
   token: string;
 }

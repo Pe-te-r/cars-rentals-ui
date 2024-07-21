@@ -115,7 +115,7 @@
 
 // export default VehiclesDetails
 
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useVehicleQuery } from '../../../../features/vehiclesSlice';
 import { format, differenceInHours } from 'date-fns';
