@@ -20,11 +20,12 @@ interface DetailsContextType {
 const DetailsContext = createContext<DetailsContextType | undefined>(undefined);
 
 export const DetailsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<UserDetails | null>(() => {
+  const storedUser =() => {
     // Retrieve the initial state from local storage
     const storedUser = localStorage.getItem('user');
     return storedUser ? JSON.parse(storedUser) : null;
-  });
+  }
+  const [user, setUser] = useState<UserDetails | null>(storedUser);
 
   useEffect(() => {
     // Store user details in local storage whenever they change

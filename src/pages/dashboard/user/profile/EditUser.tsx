@@ -1,30 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { useUpdateUserMutation } from '../../../../features/login_slice'; 
 import { User } from '../../../../types/types'; 
+import { useDetails } from '../../../../context/LocalStorageContext';
 
 interface EditUserModalProps {
   isOpen: boolean;
-  user: User;
+  userInfo: User;
   onClose: () => void;
   refetch: ()=>void;
 }
 
-const EditUserModal = ({ isOpen, refetch,user, onClose }: EditUserModalProps) => {
+const EditUserModal = ({ isOpen, refetch,userInfo, onClose }: EditUserModalProps) => {
   const [updateUser, { isLoading }] = useUpdateUserMutation();
 
-  const [name, setName] = useState(user?.name || '');
-  const [email, setEmail] = useState(user?.email || '');
-  const [contactPhone, setContactPhone] = useState(user?.contact_phone || '');
-
+  const [name, setName] = useState(userInfo?.name || '');
+  const [email, setEmail] = useState(userInfo?.email || '');
+  const [contactPhone, setContactPhone] = useState(userInfo?.contact_phone || '');
+  const {user} =useDetails()
   useEffect(() => {
-    setName(user?.name || '');
-    setEmail(user?.email || '');
-    setContactPhone(user?.contact_phone || '');
-  }, [user]);
+    setName(userInfo?.name || '');
+    setEmail(userInfo?.email || '');
+    setContactPhone(userInfo?.contact_phone || '');
+  }, [userInfo]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await updateUser({ id: user.id, name, email, contact_phone: contactPhone});
+    await updateUser({ id: userInfo.id, name, email, contact_phone: contactPhone});
+    if(user){
+      user.name = name;
+      user.email = email;
+      user.contact_phone = contactPhone;
+      
+    }
     refetch()
     onClose();
   };

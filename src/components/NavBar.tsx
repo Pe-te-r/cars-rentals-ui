@@ -46,12 +46,13 @@ const Navbar = () => {
             <Link to="/service" className="text-gray-300 hover:bg-yellow-500 hover:text-gray-900 py-2 px-4 rounded">
               Services
             </Link>
+            {user?.login && 
             <button
               className="text-gray-300 font-medium py-2 px-4 rounded focus:outline-none hover:bg-yellow-500 hover:text-gray-900"
               onClick={openModal}
             >
               Contact Us
-            </button>
+            </button>}
             {user ? 
             <>
             <div className="avatar">
@@ -71,7 +72,7 @@ const Navbar = () => {
                 {/* Login/Register */}
               </button>
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded shadow-lg">
+                <div className="absolute right-0 z-50 mt-2 w-48 bg-gray-800 border border-gray-700 rounded shadow-lg">
                   <button
                     className="block w-full px-4 py-2 text-gray-300 hover:bg-yellow-500 hover:text-gray-900 rounded"
                   onClick={() => handleClickAuth(true)}

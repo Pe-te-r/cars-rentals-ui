@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { useDetails } from "../context/LocalStorageContext";
+import { useEffect, useState } from "react";
 
 
 interface profileType{
@@ -11,9 +12,17 @@ interface profileType{
 //Profile Card Component to display user profile and logout functionality
 const ProfileCard = ({isProfileVisible,toggleProfileVisibility}: profileType) => {
   const {user,clearUserDetail}=useDetails()
+  
   const navigate = useNavigate()
+  const [details,setDetails] = useState<any>()
   
   const {setResponseToast } = useAuth();
+  useEffect(()=>{
+    if(!user) toggleProfileVisibility() 
+    if(user)setDetails(user)
+
+  },[user])
+
 
   const handleLogout =()=>{
     clearUserDetail();
@@ -34,11 +43,13 @@ const ProfileCard = ({isProfileVisible,toggleProfileVisibility}: profileType) =>
               alt="Profile"
               className="w-10 h-10 m-2 rounded-full mr-4"
             />
+            {details &&
             <div>
-              <h2 className="text-lg m-2 text-white font-semibold">{user?.name}</h2>
-              <p className="text-md m-1 text-gray-300">{user?.email}</p>
-              <p className="text-sm m-1 text-gray-400">{user?.contact_phone}</p>
+              <h2 className="text-lg m-2 text-white font-semibold">{details?.name}</h2>
+              <p className="text-md m-1 text-gray-300">{details.email}</p>
+              <p className="text-sm m-1 text-gray-400">{details.contact_phone}</p>
             </div>
+            }
           </div>
           <button
             onClick={toggleProfileVisibility}

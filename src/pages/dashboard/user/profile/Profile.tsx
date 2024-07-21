@@ -125,7 +125,7 @@ const UserProfile = () => {
     </div>
 </div>
 :isError? <h2>Error occured</h2>: null}
-<EditUserModal refetch={refetch} isOpen={isEditModalOpen} onClose={handleCloseModal} user={userDetails}/>
+<EditUserModal refetch={refetch} isOpen={isEditModalOpen} onClose={handleCloseModal} userInfo={userDetails}/>
 </>
 );
 };
