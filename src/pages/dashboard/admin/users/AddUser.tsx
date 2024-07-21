@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRegisterMutation } from '../../../../features/login_slice';
+import { useToast } from '../../../../context/smallToast';
 
 const AddUserModal = ({ isOpen, refetch,onClose }: any) => {
-  const [registerUser, { isLoading }] = useRegisterMutation();
-
+  const [registerUser, { isLoading ,isSuccess,data}] = useRegisterMutation();
+    const {addToast} = useToast()
     const [name,setName]=useState('')
     const [email, setEmail]=useState('')
     const [role,setRole]=useState('')
@@ -20,9 +21,15 @@ const AddUserModal = ({ isOpen, refetch,onClose }: any) => {
         contact_phone: contact,
     };
     await registerUser(userInfo);
-    refetch()
-    onClose(); 
   };
+  useEffect(()=>{
+    if(isSuccess && data.username !== undefined){
+      console.log(data.username)
+      onClose(); 
+      addToast(`${data.username} successfully registered`,'success');
+      refetch()
+    }
+  },[data,isSuccess])
 
   if (!isOpen) return null;
 

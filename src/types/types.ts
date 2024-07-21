@@ -79,8 +79,8 @@ export interface Credentials {
   }
   
   export interface DeleteResponse {
-    message: string;
-    deletedId: number; // Example of what your API might return upon deletion
+    message:string
+    // deletedId: number; // Example of what your API might return upon deletion
   }
 
   export interface UpdateUserResponse {
@@ -109,7 +109,7 @@ export interface Credentials {
   }
   
   export interface DeleteUserResponse {
-    mesage: string;
+    message: string;
   }
 
   

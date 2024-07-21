@@ -8,6 +8,7 @@ import Toast from './pages/auth/ToastResponse';
 import { DetailsProvider } from './context/LocalStorageContext';
 import UserDashboard from './pages/dashboard/user/UserDashBoard';
 import ProtectedRoute from './protectRoute';
+import { ToastProvider } from './context/smallToast';
 
 const userData = localStorage.getItem('user')
 
@@ -34,9 +35,11 @@ function App() {
   return (
     <DetailsProvider>
       <AuthProvider>
+        <ToastProvider>
         <div className="mainContainer bg-gray-900" style={{ minHeight: '100vh',position:'relative' }}>
           <RouterProvider router={routes} />
         </div>
+        </ToastProvider>
         <Toast />
       </AuthProvider>
     </DetailsProvider>
