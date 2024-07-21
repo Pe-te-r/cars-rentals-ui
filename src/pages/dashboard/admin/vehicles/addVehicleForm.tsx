@@ -4,6 +4,10 @@ import CustomDropdown from "../../../../components/CustomDropDown";
 import { useGetAllLocationsQuery } from "../../../../features/LocationSlice";
 import { useAuth } from "../../../../context/authContext";
 import { useAddVehicleMutation } from "../../../../features/vehiclesSlice";
+import { BsFillSendPlusFill } from "react-icons/bs";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+
+
 
 const AddVehicleForm = ({ close,display }: any) => {
   const {data,isSuccess} =useGetAllLocationsQuery(undefined,{pollingInterval:4000})
@@ -196,8 +200,8 @@ const initialCarDetails={
 
             </div>
             <div className="flex justify-end gap-4">
-              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" onClick={() => close()}>Close</button>
-              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" type="submit" >{isLoading ? <span className="loading loading-spinner loading-xs"></span> : "Submit"}</button>
+              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" onClick={() => close()}><IoIosCloseCircleOutline size={30}/></button>
+              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" type="submit" >{isLoading ? <span className="loading loading-spinner loading-xs"></span> : <BsFillSendPlusFill size={30} className="text-white"/>}</button>
             </div>
           </form>
         </div>

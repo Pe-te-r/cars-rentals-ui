@@ -5,6 +5,10 @@ import ContactPage from '../pages/Contact';
 import ProfileCard from './ProfileCard';
 import { useDetails } from '../context/LocalStorageContext';
 import AuthController from '../pages/auth/authComponent';
+import { VscAccount } from "react-icons/vsc";
+import { IoHome } from "react-icons/io5";
+
+
 
 const Navbar = () => {
   const [isProfileVisible, setIsProfileVisible] = useState(false);
@@ -34,7 +38,7 @@ const Navbar = () => {
           <div className="text-white text-xl font-bold mb-1">Phantom</div>
           <div className="hidden md:flex space-x-6 items-center">
             <Link to="/" className="text-gray-300 hover:bg-yellow-500 hover:text-gray-900 py-2 px-4 rounded">
-              Home
+              <span className='flex items-center justify-center'><IoHome className='mr-2' size={21}/>Home</span>
             </Link>
             <Link to="/about" className="text-gray-300 hover:bg-yellow-500 hover:text-gray-900 py-2 px-4 rounded">
               About Us
@@ -63,7 +67,8 @@ const Navbar = () => {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className="bg-blue-500 text-white px-4 py-2 rounded"
             >
-                Login/Register
+              <VscAccount size={21} color='red'/>
+                {/* Login/Register */}
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded shadow-lg">

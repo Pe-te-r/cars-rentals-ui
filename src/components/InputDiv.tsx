@@ -1,9 +1,9 @@
 import { InputDivTypes } from "../types/types"
 
-const InputDiv = ({label,type,placeholder,setData,value,required=true}:InputDivTypes) => {
+const InputDiv = ({label,type,placeholder,setData,value,icon,required=true}:InputDivTypes) => {
   return (
     <div>
-              <label className="block mb-1 text-white">{label}</label>
+              <label className="block mb-1 text-white"><span className="flex items-center ">{icon}{label}</span></label>
               <input
                 type={type}
                 required={required}

@@ -33,6 +33,7 @@ export interface Credentials {
     placeholder: string;
     setData: (value: any) => void;
     value: any;
+    icon?: any;
     required? : boolean;
   }
 

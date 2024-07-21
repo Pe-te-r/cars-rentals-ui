@@ -111,6 +111,8 @@ import DynamicTable from '../../../../components/Table';
 import { User } from '../../../../types/types';
 import DynamicForm from '../../../../components/DynamicForm';
 import AddUserModal from './AddUser';
+import { MdPersonAddAlt } from "react-icons/md";
+
 
 const UsersTableContainer = () => {
   const { data, isLoading, error, refetch, isError } = useFetchAllUsersQuery(undefined, {
@@ -195,7 +197,7 @@ const UsersTableContainer = () => {
         !Array.isArray(dataRows) ? <h2>{dataRows['error']}</h2> :
           <>
             <div className='mb-3'>
-              <button className='btn bg-green-800 hover:bg-green-900' onClick={() => setAddUserModalOpen(true)}> Add User</button>
+              <button className='btn bg-green-800 hover:bg-green-900' onClick={() => setAddUserModalOpen(true)}> <MdPersonAddAlt color='grey' size={30}/></button>
             </div>
             <DynamicTable
               headers={headers}

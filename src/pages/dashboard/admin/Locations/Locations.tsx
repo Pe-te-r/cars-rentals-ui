@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useDeleteLocationsMutation, useGetAllLocationsQuery } from "../../../../features/LocationSlice";
 import AddLocations from "./AddLocations";
 import EditLocation from "./EditLocation";
+import { MdModeEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import { IoIosAddCircle } from "react-icons/io";
+
 
 const Locations = () => {
     const { data, isSuccess, refetch } = useGetAllLocationsQuery();
@@ -58,8 +62,8 @@ const Locations = () => {
                                     <td>{location.address}</td>
                                     <td>{location.contact}</td>
                                     <td>
-                                        <button className="btn text-white font-normal mr-2 bg-blue-500 hover:bg-blue-900" onClick={()=>handleEdit(location.id)}>Edit</button>
-                                        <button className="btn text-white font-normal ml-2 bg-red-500 hover:bg-red-900" onClick={() => handleDelete(location.id)}>Delete</button>
+                                        <button className="btn text-white font-normal mr-2 bg-blue-500 hover:bg-blue-900" onClick={()=>handleEdit(location.id)}><MdModeEdit size={22}/></button>
+                                        <button className="btn text-white font-normal ml-2 bg-red-500 hover:bg-red-900" onClick={() => handleDelete(location.id)}><MdDelete size={22}/></button>
                                     </td>
                                 </tr>
                             ))}
@@ -69,7 +73,7 @@ const Locations = () => {
                         className="fixed bottom-5 right-5 bg-yellow-600 text-black font-mono text-[21px] px-6 py-4 rounded-full shadow-lg hover:bg-yellow-700 focus:outline-none"
                         onClick={toggleAddLocation}
                     >
-                        Add Location
+                       <IoIosAddCircle size={30}/>
                     </button>
                 </div>
             ) : (
