@@ -11,6 +11,7 @@ const VehiclesDetails = () => {
   const [vehicle, setVehicle] = useState<any>({});
   const [startDate, setStartDate] = useState('2024-07-23');
   const [endDate, setEndDate] = useState('2024-07-23');
+  const [bookingDays, setBookingDays] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isValidBooking, setIsValidBooking] = useState<boolean>(false);
   const { id } = useParams();
@@ -23,20 +24,9 @@ const VehiclesDetails = () => {
     }
   }, [isSuccess, data]);
 
-  // const bookedDates = [
-  //   '2024-07-30',
-  //   '2024-07-31',
-  //   // Add more dates as needed
-  // ];
-
-  // const bookedDateRanges = [
-  //   { start: '2024-07-25', end: '2024-07-30' },
-  //   { start: '2024-08-05', end: '2024-08-10' },
-  // ];
 
   const getDatesInRange = (start: any, end: any) => {
     try {
-      // Ensure that start and end are valid ISO date strings
       if (typeof start !== 'string' || typeof end !== 'string') {
         throw new Error("Start and end dates must be ISO date strings.");
       }
@@ -66,9 +56,11 @@ const VehiclesDetails = () => {
     if (hrs === null) return 0;
     return Math.max(hrs, 0) * parseFloat(vehicle.rental_rate || '0');
   };
+
   const validateBooking=()=>{
     if (!startDate ||!endDate) {
       setErrorMessage('Please select a start and end date.');
+      setBookingDays([])
       return false;
     }
     const startISO = format(startDate, 'yyyy-MM-dd');
@@ -76,25 +68,25 @@ const VehiclesDetails = () => {
     
     if (calculateDifferenceInHours()<0) {
       setErrorMessage('Start date should be before end date.');
+      setBookingDays([])
       return false;
     }
     if (calculateDifferenceInHours()=== 0) {
       setErrorMessage('Start date should be different from end date.');
+      setBookingDays([])
       return false;
     }
 
     const bookingDatesRange = getDatesInRange(startISO, endISO)
     const existInBoth = bookingDatesRange.some(date => bookedDates.includes(date));
-    console.log('Found dates')
-    console.log(existInBoth)
     if(existInBoth){
       setErrorMessage('Selected dates are already booked.');
+      setBookingDays([])
       return false;
     }
-
-
     setErrorMessage(null);
     setIsValidBooking(true)
+    setBookingDays(bookingDatesRange)
     return true;
   }
  
@@ -123,8 +115,10 @@ const VehiclesDetails = () => {
               <h3 className="text-center text-white p-2 font-mono text-[28px] font-bold">
                 {vehicle.vehicleSpecification.manufacturer} {vehicle.vehicleSpecification.model}
               </h3>
-              <div className="carInfo flex h-[500px]">
-                <div className="carInfoDetails flex text-[1.5rem] text-white rounded-md flex-row bg-gray-800 font-mono w-2/3">
+              <div className="carInfo  bg-gray-900 flex h-[500px]">
+                <div className='carInfoDetails flex flex-col'>
+                  <h2 className='text-center font-bold text-[20px]'>More Details</h2>
+                <div className="flex w-full text-[1.5rem] h-full text-white rounded-md  bg-gray-800 font-mono bg-gray-900">
                   <div className="carInfoDetailsContainer p-4 flex flex-col">
                     <p>Available: <span className="text-gray-400">{vehicle.availability.toString()}</span></p>
                     <p>Location: <span className="text-gray-400">{vehicle.location.name}</span></p>
@@ -140,17 +134,21 @@ const VehiclesDetails = () => {
                     <p>Fuel: <span className="text-gray-400">{vehicle.vehicleSpecification.fuel_type}</span></p>
                   </div>
                 </div>
-                <div className="w-1/3 p-1 rounded-md bg-gray-800 flex text-center justify-center">
-                  <img src={getRandomImage()} className='block object-fit w-full' alt="" />
+                </div>
+                <div className="w-full lg:w-1/3 p-4 rounded-md flex justify-center items-center">
+                  <img src={getRandomImage()} className='object-contain w-full' alt="Vehicle" />
                 </div>
               </div>
-              <div className="bg-gray-800 flex-row flex justify-evenly mt-5 rounded-md p-4 text-[20px] text-gray-200">
+              <div className="bg-gray-900 mt-5 p-4 text-[20px]">
+                <h2 className='text-center mb-3 font-mono font-bold text-[20px]'>Booking Details</h2>
+              <div className="bg-gray-800 flex-row flex justify-evenly  bg-gray-900  rounded-md text-gray-200">
                 <div className="flex flex-col font-mono text-[21px]">
                   <p>Starting Date: {format(startDate, 'MMMM do, yyyy')}</p>
                   <CalendarComponent
                     selectedDate={startDate}
                     setSelectedDate={setStartDate}
                     disabledDates={bookedDates}
+                    bookedDays={bookingDays}
                   />
                 </div>
                 <div className="flex flex-col font-mono text-[21px]">
@@ -158,6 +156,7 @@ const VehiclesDetails = () => {
                   <CalendarComponent
                   selectedDate={endDate}
                   setSelectedDate={setEndDate}
+                  bookedDays={bookingDays}
                   disabledDates={bookedDates}
                   />
                 </div>
@@ -176,6 +175,7 @@ const VehiclesDetails = () => {
                     </>
                   )}
                 </div>
+              </div>
               </div>
             </>
           ) : (
