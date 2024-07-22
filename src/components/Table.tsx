@@ -43,7 +43,7 @@ const DynamicTable: React.FC<TableProps> = ({ headers, data, onEdit, onDelete, o
                 <td className="px-4 py-2">
                   {onEdit && (
                     <button
-                      className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 focus:outline-none"
+                      className={`bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600 focus:outline-none  ${onDeleteLoading &&  'bg-gray-800 cursor-not-allowed'}`}
                       onClick={() => onEdit(row)}
                     >
                       <MdModeEdit size={21} />
@@ -51,13 +51,13 @@ const DynamicTable: React.FC<TableProps> = ({ headers, data, onEdit, onDelete, o
                   )}
                   {onDelete && (
                     <button
-                      className="ml-2 bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 focus:outline-none"
+                      className={`ml-2 bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 focus:outline-none`}
                       onClick={() => handleDeleteClick(row.id)}
                     >
                       {deletingRowId === row.id && onDeleteLoading ? (
                         <span className="loading loading-spinner loading-sm"></span>
                       ) : (
-                        <RiDeleteBin5Line size={21} />
+                        <RiDeleteBin5Line size={21}/>
                       )}
                     </button>
                   )}

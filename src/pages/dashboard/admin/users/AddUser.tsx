@@ -92,7 +92,7 @@ const AddUserModal = ({ isOpen, refetch,onClose }: any) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded bg-gray-700 text-white hover:bg-gray-600"
+              className={`px-4 py-2 rounded bg-gray-700 text-white hover:bg-gray-600 ${isLoading ? 'bg-gray-800 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600' }`}
             >
               Cancel
             </button>

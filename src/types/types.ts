@@ -84,14 +84,7 @@ export interface Credentials {
   }
 
   export interface UpdateUserResponse {
-    success: boolean;
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      contact_phone: string;
-      address: string;
-    };
+    message:string
   }
 
   export interface UpdateUserRequest {
