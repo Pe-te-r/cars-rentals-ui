@@ -5,6 +5,7 @@ import { useVehicleQuery } from '../../../../features/vehiclesSlice';
 import CalendarComponent from '../../datesHandle/DatesShow';
 import { getRandomImage } from '../../images';
 import { useDetails } from '../../../../context/LocalStorageContext';
+import { useAddBookingsMutation } from '../../../../features/bookingsSlice';
 
 const VehiclesDetails = () => {
   const {user}= useDetails()
@@ -14,6 +15,7 @@ const VehiclesDetails = () => {
   const [bookingDays, setBookingDays] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isValidBooking, setIsValidBooking] = useState<boolean>(false);
+  const [addBooking,{data:bookingData,isSuccess:bookingSuccess,isLoading:bookingLoading}] = useAddBookingsMutation()
   const { id } = useParams();
 
   const { data, isLoading, isSuccess } = useVehicleQuery({ id: id, details: true }, { pollingInterval: 5000 });
@@ -57,6 +59,7 @@ const VehiclesDetails = () => {
     return Math.max(hrs, 0) * parseFloat(vehicle.rental_rate || '0');
   };
 
+  // validating selected days
   const validateBooking=()=>{
     if (!startDate ||!endDate) {
       setErrorMessage('Please select a start and end date.');
@@ -95,6 +98,32 @@ const VehiclesDetails = () => {
     validateBooking();
   }, [startDate, endDate]);
 
+  const handleBooking = ()=>{
+    if(!isValidBooking){
+      return
+    }
+
+    const formatDateForDB = (date: any) => {
+      return format(date, 'yyyy-MM-dd');
+    };
+
+
+    const bookingDetails = {
+      user_id: user?.id,
+      vehicle_id: id,
+      location_id: vehicle.location.id,
+      booking_date:formatDateForDB(startDate),
+      return_date: formatDateForDB(endDate),
+      totalAmount: calculateAmount(),
+    }
+    addBooking(bookingDetails)
+  }
+  useEffect(()=>{
+    if(bookingSuccess && bookingData['result']=='success'){
+      console.log(bookingData)
+    }
+  },[bookingData,bookingSuccess])
+
   const to = user?.role == 'admin' ? "/admin/vehicles" : "/dashboard/vehicles"
 
   return (
@@ -103,12 +132,6 @@ const VehiclesDetails = () => {
         <span className="fixed left-1/2 top-1/2 loading loading-spinner text-primary"></span>
       ) : isSuccess ? (
         <div className="bg-gray-800 p-5 ">
-          {/* {
-            user?.role === 'admin'?
-            <Link to="/admin/vehicles" className="btn">Back</Link>
-            :
-            } */}
-
             <Link to={to} className="btn bg-blue-800 hover:bg-blue-900">Back</Link>
           {vehicle.vehicleSpecification ? (
             <>
@@ -169,7 +192,7 @@ const VehiclesDetails = () => {
                       <p>Amount: Kes <span className="font-normal">{calculateAmount()}</span></p>
                       {isValidBooking && calculateDifferenceInHours() > 0 ? (
                         <div className="btn-container flex">
-                          <button className="btn hover:bg-blue-900 bg-blue-800">Book for a ride</button>
+                          <button onClick={handleBooking} className="btn hover:bg-blue-900 bg-blue-800">{bookingLoading?<span className="loading loading-spinner loading-xs"></span>:'Book for a ride'}</button>
                         </div>
                       ) : null}
                     </>
