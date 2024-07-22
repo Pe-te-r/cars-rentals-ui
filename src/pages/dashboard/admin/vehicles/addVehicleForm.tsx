@@ -2,18 +2,19 @@ import { useEffect, useState } from "react";
 import InputDiv from "../../../../components/InputDiv";
 import CustomDropdown from "../../../../components/CustomDropDown";
 import { useGetAllLocationsQuery } from "../../../../features/LocationSlice";
-import { useAuth } from "../../../../context/authContext";
 import { useAddVehicleMutation } from "../../../../features/vehiclesSlice";
 import { BsFillSendPlusFill } from "react-icons/bs";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useToast } from "../../../../context/smallToast";
 
 
 
 const AddVehicleForm = ({ close,display }: any) => {
   const {data,isSuccess} =useGetAllLocationsQuery(undefined,{pollingInterval:4000})
-  const [addVehicle,{isLoading}] = useAddVehicleMutation()
+  const [addVehicle,{isLoading,data:addingVehicleData,isSuccess:successAddVehicle}] = useAddVehicleMutation()
   const [locationsNames,setLocatins]=useState([])
-  const{ setResponseToast }=useAuth()
+  const { addToast } = useToast();
+
 const initialCarDetails={
 
     rental: '',
@@ -47,6 +48,7 @@ const initialCarDetails={
     )
       const locations = locationsName.map((location: any) =>createObject(location.name,location.id)   );
       setLocatins(locations)
+      
       }
       
       },[isSuccess,data])
@@ -64,19 +66,26 @@ const initialCarDetails={
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); 
     if(carDetails.location === 'All'){
-      setResponseToast({ message: `Location cannot be all`, type: '' });
+      addToast( `Location cannot be all`, 'error');
     }else{
       addVehicle(carDetails)
       setCarDetails(initialCarDetails)
-      if(!isLoading){
-        close()
-      }
+    
     }
     
   };
 
+  useEffect(()=>{
+    if(successAddVehicle && addingVehicleData.result=='success'){
+      console.log(addingVehicleData)
+      addToast(`${addingVehicleData.manufacturer} ${addingVehicleData.model} added successfully`,'success');
+      close()
+    }
+    if(addingVehicleData === 'error'){
+      addToast('please try again to add', 'error');
+    }
 
-  // console.log(carDetails)
+  },[addingVehicleData,successAddVehicle])
 
   return (
     <div>
@@ -143,7 +152,7 @@ const initialCarDetails={
                 <InputDiv
                   label="Transmission Capacity"
                   placeholder="Transmission Capacity"
-                  type="number"
+                  type="text"
                   setData={(value: string) => handleChange('transmission_capacity', value)}
                   value={carDetails.transmission_capacity}
                 />
@@ -200,8 +209,8 @@ const initialCarDetails={
 
             </div>
             <div className="flex justify-end gap-4">
-              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" onClick={() => close()}><IoIosCloseCircleOutline size={30}/></button>
-              <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" type="submit" >{isLoading ? <span className="loading loading-spinner loading-xs"></span> : <BsFillSendPlusFill size={30} className="text-white"/>}</button>
+              <button className={`btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900  ${isLoading ? 'bg-gray-800 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600' }`}onClick={() => close()}><IoIosCloseCircleOutline size={30}/></button>
+              <button className={`btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900  ${isLoading ? 'opacity-50' : ''}`}type="submit" >{isLoading ? <span className="loading loading-spinner loading-xs"></span> : <BsFillSendPlusFill size={30} className="text-white"/>}</button>
             </div>
           </form>
         </div>

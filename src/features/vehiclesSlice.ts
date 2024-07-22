@@ -20,7 +20,7 @@ export const vechiclesApi = createApi({
         getVehicles: builder.query<any,getVehicleRequest>({
             query: ({id,details}) => id && details? `vehicles/${id}?details=true `: `vehicles/${id}`,
         }),
-        updateVehicle: builder.mutation<vehicleResponse,any>({
+        updateVehicle: builder.mutation<any,any>({
             query: ({id,...data})=>({
                 url:`vehicles/${id}`,
                 method: 'PUT',

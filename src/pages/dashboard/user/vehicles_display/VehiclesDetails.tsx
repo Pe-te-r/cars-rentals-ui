@@ -6,9 +6,13 @@ import CalendarComponent from '../../datesHandle/DatesShow';
 import { getRandomImage } from '../../images';
 import { useDetails } from '../../../../context/LocalStorageContext';
 import { useAddBookingsMutation } from '../../../../features/bookingsSlice';
+import { FaEdit } from "react-icons/fa";
+import EditVehicle from './editVehicle';
+
 
 const VehiclesDetails = () => {
   const {user}= useDetails()
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [vehicle, setVehicle] = useState<any>({});
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -16,10 +20,10 @@ const VehiclesDetails = () => {
   const [bookedDays, setBookedDays] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isValidBooking, setIsValidBooking] = useState<boolean>(false);
-  const [addBooking,{data:bookingData,isSuccess:bookingSuccess,isLoading:bookingLoading}] = useAddBookingsMutation()
+  const [addBooking,{isLoading:bookingLoading}] = useAddBookingsMutation()
   const { id } = useParams();
 
-  const { data, isLoading, isSuccess } = useVehicleQuery({ id: id, details: true }, { pollingInterval: 5000 });
+  const { data, isLoading, isSuccess, refetch} = useVehicleQuery({ id: id, details: true }, { pollingInterval: 5000 });
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -49,33 +53,24 @@ const VehiclesDetails = () => {
   if(bookedDays){
     bookedDates = bookedDays.flatMap((day: any) => {
     try {
-      // Ensure day.booking_date and day.return_date are valid dates
       const startDate = new Date(day.booking_date);
       const endDate = new Date(day.return_date);
   
       if (startDate.getTime() <= endDate.getTime()) {
-        // Calculate dates in range (inclusive) using a loop or a library
         const datesInRange = [];
         for (let currentDate = startDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
           datesInRange.push(new Date(currentDate).toISOString().slice(0, 10));
         }
         return datesInRange;
       } else {
-        console.warn(`Invalid date range for booking: ${day.booking_date} - ${day.return_date}`);
-        return []; // Or handle invalid dates differently (e.g., throw an error)
+        
+        return [];
       }
     } catch (error) {
-      console.error(`Error processing booking date: ${day.booking_date}`, error);
-      return []; // Or handle errors differently (e.g., throw an error)
+      return []; 
     }
   });
-  
-    // console.log(days)
-    console.log('here')
   }
-
-
-  // const bookedDates=getDatesInRange('2024-07-25','2024-07-30' )
 
   const calculateDifferenceInHours = () => {
     if (startDate && endDate) {
@@ -141,6 +136,9 @@ const VehiclesDetails = () => {
     };
 
 
+  
+
+
     const bookingDetails = {
       user_id: user?.id,
       vehicle_id: id,
@@ -151,14 +149,19 @@ const VehiclesDetails = () => {
     }
     addBooking(bookingDetails)
   }
-  useEffect(()=>{
-    if(bookingSuccess && bookingData['result']=='success'){
-      console.log('days')
 
-    }
-  },[bookingData,bookingSuccess])
 
   const to = user?.role == 'admin' ? "/admin/vehicles" : "/dashboard/vehicles"
+
+
+  const handleEditOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleEditCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
 
   return (
     <div>
@@ -169,6 +172,11 @@ const VehiclesDetails = () => {
             <Link to={to} className="btn bg-blue-800 hover:bg-blue-900">Back</Link>
           {vehicle.vehicleSpecification ? (
             <>
+            {user?.role === 'admin' &&
+            <button onClick={handleEditOpenModal}
+                className="fixed bottom-5 right-5 bg-yellow-600 text-black font-mono text-[21px] px-6 py-4 rounded-lg shadow-lg hover:bg-yellow-700 focus:outline-none"
+                    >
+                    <FaEdit size={30} className="text-grey-800"/></button>}
               <h3 className="text-center text-white p-2 font-mono text-[28px] font-bold">
                 {vehicle.vehicleSpecification.manufacturer} {vehicle.vehicleSpecification.model}
               </h3>
@@ -240,6 +248,7 @@ const VehiclesDetails = () => {
           )}
         </div>
       ) : null}
+      <EditVehicle isOpen={isModalOpen} refetch={refetch} id={id} vehicle={vehicle} onClose={handleEditCloseModal}/>
     </div>
   );
 };
