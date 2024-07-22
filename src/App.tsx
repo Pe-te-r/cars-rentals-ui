@@ -10,16 +10,7 @@ import UserDashboard from './pages/dashboard/user/UserDashBoard';
 import ProtectedRoute from './protectRoute';
 import { ToastProvider } from './context/smallToast';
 
-const userData = localStorage.getItem('user')
 
-let userJson
-if(userData){
-  userJson =JSON.parse(userData ) || {};
-}
-let isAdmin = false
-if(userData && userJson.role === 'admin'){
-  isAdmin = true
-}
 
 const routes = createBrowserRouter([
   { path: '/', element: <Home /> },

@@ -9,7 +9,7 @@ import { FaCircleInfo } from "react-icons/fa6";
 const Bookings = () => {
   const { data, isSuccess, isError, isLoading }: any = useGetBookingsQuery({
     details: true,
-  },{pollingInterval:2000});
+  },{pollingInterval:2000,refetchOnReconnect:true});
   const [bookings, setBookings] = useState<any[]>([]);
   
   useEffect(() => {
@@ -17,7 +17,7 @@ const Bookings = () => {
       const allBookings = data.results || [];
       
       const pendingBookings = allBookings.filter((booking: any) => booking.status === 'pending');
-      const returnedBookings = allBookings.filter((booking: any) => booking.status === 'returned');
+      const returnedBookings = allBookings.filter((booking: any) => booking.status === 'confirmed');
       
       const orderedBookings = [...pendingBookings, ...returnedBookings];
       

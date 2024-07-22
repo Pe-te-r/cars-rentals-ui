@@ -10,9 +10,10 @@ import { useAddBookingsMutation } from '../../../../features/bookingsSlice';
 const VehiclesDetails = () => {
   const {user}= useDetails()
   const [vehicle, setVehicle] = useState<any>({});
-  const [startDate, setStartDate] = useState('2024-07-23');
-  const [endDate, setEndDate] = useState('2024-07-23');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [bookingDays, setBookingDays] = useState<string[]>([]);
+  const [bookedDays, setBookedDays] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isValidBooking, setIsValidBooking] = useState<boolean>(false);
   const [addBooking,{data:bookingData,isSuccess:bookingSuccess,isLoading:bookingLoading}] = useAddBookingsMutation()
@@ -23,10 +24,9 @@ const VehiclesDetails = () => {
   useEffect(() => {
     if (isSuccess && data) {
       setVehicle(data['result']);
+      setBookedDays(data.result.bookings)
     }
   }, [isSuccess, data]);
-
-
   const getDatesInRange = (start: any, end: any) => {
     try {
       if (typeof start !== 'string' || typeof end !== 'string') {
@@ -44,7 +44,38 @@ const VehiclesDetails = () => {
       return [];
     }
   };
-  const bookedDates=getDatesInRange('2024-07-25','2024-07-30' )
+
+  let bookedDates: any=[]
+  if(bookedDays){
+    bookedDates = bookedDays.flatMap((day: any) => {
+    try {
+      // Ensure day.booking_date and day.return_date are valid dates
+      const startDate = new Date(day.booking_date);
+      const endDate = new Date(day.return_date);
+  
+      if (startDate.getTime() <= endDate.getTime()) {
+        // Calculate dates in range (inclusive) using a loop or a library
+        const datesInRange = [];
+        for (let currentDate = startDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+          datesInRange.push(new Date(currentDate).toISOString().slice(0, 10));
+        }
+        return datesInRange;
+      } else {
+        console.warn(`Invalid date range for booking: ${day.booking_date} - ${day.return_date}`);
+        return []; // Or handle invalid dates differently (e.g., throw an error)
+      }
+    } catch (error) {
+      console.error(`Error processing booking date: ${day.booking_date}`, error);
+      return []; // Or handle errors differently (e.g., throw an error)
+    }
+  });
+  
+    // console.log(days)
+    console.log('here')
+  }
+
+
+  // const bookedDates=getDatesInRange('2024-07-25','2024-07-30' )
 
   const calculateDifferenceInHours = () => {
     if (startDate && endDate) {
@@ -96,6 +127,8 @@ const VehiclesDetails = () => {
 
   useEffect(() => {
     validateBooking();
+
+    
   }, [startDate, endDate]);
 
   const handleBooking = ()=>{
@@ -120,7 +153,8 @@ const VehiclesDetails = () => {
   }
   useEffect(()=>{
     if(bookingSuccess && bookingData['result']=='success'){
-      console.log(bookingData)
+      console.log('days')
+
     }
   },[bookingData,bookingSuccess])
 

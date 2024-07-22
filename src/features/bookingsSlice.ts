@@ -41,17 +41,24 @@ export const bookingsApi = createApi({
           body: data,
         }),
       }),
+      searchBookings: builder.query<any, {id?: number}>({
+        query: ({id}) =>({
+            url: `bookings/search/${id}`
+          }),
+      }),
     }),
   });
   
 
 
 type UseGetBookingsQuery = typeof bookingsApi.endpoints.getBookings.useQuery;
+type UseSearchBookingsQuery = typeof bookingsApi.endpoints.searchBookings.useQuery;
 type UseDeleteBookingsMutation = typeof bookingsApi.endpoints.deleteBookings.useMutation;
 type UseUpdateBookingsMutation = typeof bookingsApi.endpoints.updateBookings.useMutation;
 type UseAddBookingsMutation = typeof bookingsApi.endpoints.addBookings.useMutation;
 
 export const useGetBookingsQuery: UseGetBookingsQuery = bookingsApi.endpoints.getBookings.useQuery;
+export const useSearchBookingsQuery: UseSearchBookingsQuery = bookingsApi.endpoints.searchBookings.useQuery;
 export const useDeleteBookingsMutation: UseDeleteBookingsMutation = bookingsApi.endpoints.deleteBookings.useMutation;
 export const useUpdateBookingsMutation: UseUpdateBookingsMutation = bookingsApi.endpoints.updateBookings.useMutation;
 export const useAddBookingsMutation: UseAddBookingsMutation = bookingsApi.endpoints.addBookings.useMutation;
