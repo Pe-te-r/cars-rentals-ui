@@ -8,7 +8,6 @@ const ContactPage = ({ isOpen, closeModal }: { isOpen: boolean; closeModal: () =
   const {user} =useDetails()
   const {setResponseToast} =useAuth()
   const [sendData,{data,isLoading,isSuccess}]=useCreateSupportMutation()
-  const [response,setResponse]= useState('')
   const [message, setMessage] = useState({
     user_id:user?.id,
     subject: '',

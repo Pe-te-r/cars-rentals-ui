@@ -5,6 +5,7 @@ import { bookingsApi } from '../features/bookingsSlice';
 import { locationsAPi } from '../features/LocationSlice';
 import { fleetApi } from '../features/fleetSlice';
 import { supporthApi } from '../features/messageSlice';
+import { paymentApi } from '../features/paymentSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,10 +14,11 @@ export const store = configureStore({
     [bookingsApi.reducerPath]: bookingsApi.reducer,
     [locationsAPi.reducerPath]: locationsAPi.reducer,
     [fleetApi.reducerPath]: fleetApi.reducer,
-    [supporthApi.reducerPath]: supporthApi.reducer
+    [supporthApi.reducerPath]: supporthApi.reducer,
+    [paymentApi.reducerPath]: paymentApi.reducer
   },
   middleware: (getDefaultMiddleware: any) =>
-    getDefaultMiddleware().concat(authApi.middleware,vechiclesApi.middleware,bookingsApi.middleware,locationsAPi.middleware,fleetApi.middleware,supporthApi.middleware),
+    getDefaultMiddleware().concat(authApi.middleware,vechiclesApi.middleware,bookingsApi.middleware,locationsAPi.middleware,fleetApi.middleware,supporthApi.middleware,paymentApi.middleware),
 
 });
 

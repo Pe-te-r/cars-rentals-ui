@@ -34,7 +34,7 @@ export const bookingsApi = createApi({
           body: data,
         }),
       }),
-      addBookings: builder.mutation<void, any>({
+      addBookings: builder.mutation<any, any>({
         query: (data) => ({
           url: 'bookings',
           method: 'POST',

@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react';
-import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
+import { useParams, Link,  useNavigate } from 'react-router-dom';
 import { eachDayOfInterval, format, parseISO,differenceInHours } from 'date-fns';
 import { useDeleteVehicleMutations, useVehicleQuery } from '../../../../features/vehiclesSlice';
 import CalendarComponent from '../../datesHandle/DatesShow';
@@ -10,6 +10,7 @@ import { FaEdit } from "react-icons/fa";
 import EditVehicle from './editVehicle';
 import { MdDeleteForever } from "react-icons/md";
 import { useToast } from '../../../../context/smallToast';
+import { usepaymentMutation } from '../../../../features/paymentSlice';
 
 
 
@@ -23,7 +24,7 @@ const VehiclesDetails = () => {
   const [bookedDays, setBookedDays] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isValidBooking, setIsValidBooking] = useState<boolean>(false);
-  const [addBooking,{isLoading:bookingLoading}] = useAddBookingsMutation()
+  const [addBooking,{isLoading:bookingLoading,isSuccess:bookingSuccess,data:bookingData}] = useAddBookingsMutation()
   const { id } = useParams();
   const navigator = useNavigate()
   const {addToast} = useToast()
@@ -131,7 +132,7 @@ const VehiclesDetails = () => {
     
   }, [startDate, endDate]);
 
-  const handleBooking = ()=>{
+  const handleBooking = async()=>{
     if(!isValidBooking){
       return
     }
@@ -139,7 +140,6 @@ const VehiclesDetails = () => {
     const formatDateForDB = (date: any) => {
       return format(date, 'yyyy-MM-dd');
     };
-
 
   
 
@@ -152,7 +152,10 @@ const VehiclesDetails = () => {
       return_date: formatDateForDB(endDate),
       totalAmount: calculateAmount(),
     }
-    addBooking(bookingDetails)
+  const response =  await addBooking(bookingDetails).unwrap()
+  console.log(response)
+  console.log('above me')
+  
   }
 
 
@@ -183,10 +186,41 @@ const VehiclesDetails = () => {
     }
   },[deleteData,deleteSuccess])
 
-  console.log('here')
-  console.log(vehicle.vehicle_id)
-  console.log('here')
-  
+
+
+
+
+
+  const [createPayment, {  isLoading:paymentLoading }] = usepaymentMutation();
+
+  const handlePayment = async (id: any,amount: any) => {
+    try {
+      const dataPay={
+        bookingId:id,
+        amount:amount
+      }
+      const response = await createPayment(dataPay).unwrap();
+      if (response?.checkoutUrl) {
+        // Redirect to Stripe Checkout
+        window.location.href = response.checkoutUrl;
+      }
+    } catch (err) {
+      console.error('Error creating payment session:', err);
+    }
+  };
+
+
+  useEffect(()=>{
+    if(bookingSuccess && bookingData.id){
+      console.log(bookingData)
+      console.log('nnnm')
+      console.log(calculateAmount())
+      handlePayment(bookingData.id,calculateAmount())
+    }
+    
+  },[bookingSuccess,bookingData])
+
+
   return (
     <div>
       {isLoading ? (
@@ -196,6 +230,8 @@ const VehiclesDetails = () => {
             <Link to={to} className="btn bg-blue-800 hover:bg-blue-900">Back</Link>
           {vehicle.vehicleSpecification ? (
             <>
+
+
             {user?.role === 'admin' &&
             <>
             
@@ -270,7 +306,7 @@ const VehiclesDetails = () => {
                       <p>Amount: Kes <span className="font-normal">{calculateAmount()}</span></p>
                       {isValidBooking && calculateDifferenceInHours() > 0 ? (
                         <div className="btn-container flex">
-                          <button onClick={handleBooking} className="btn hover:bg-blue-900 bg-blue-800">{bookingLoading?<span className="loading loading-spinner loading-xs"></span>:'Book for a ride'}</button>
+                          <button onClick={handleBooking} disabled={paymentLoading} className="btn hover:bg-blue-900 bg-blue-800">{bookingLoading?<span className="loading loading-spinner loading-xs"></span>: paymentLoading ? 'processing payment' : 'Book for a ride'}</button>
                         </div>
                       ) : null}
                     </>
