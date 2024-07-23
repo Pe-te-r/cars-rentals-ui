@@ -189,7 +189,6 @@ const EditVehicle = ({ isOpen, onClose,vehicle,id ,refetch}: any) => {
             <div className="flex justify-end gap-4">
               <button className={`btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900 ${updateLoading && 'bg-gray-800 cursor-not-allowed'}`} onClick={() => onClose()}><IoIosCloseCircleOutline size={30}/></button>
               <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" type="submit" >{updateLoading ? <span className="loading loading-spinner loading-xs"></span> : <BsFillSendPlusFill size={30} className="text-white"/>}</button>
-              {/* <button className="btn bg-blue-700 text-white px-4 py-2 rounded hover:bg-blue-900" type="submit" >{<BsFillSendPlusFill size={30} className="text-white"/>}</button> */}
             </div>
           </form>
         </div>

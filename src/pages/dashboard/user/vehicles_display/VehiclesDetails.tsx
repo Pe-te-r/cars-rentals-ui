@@ -1,13 +1,16 @@
 import  { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
 import { eachDayOfInterval, format, parseISO,differenceInHours } from 'date-fns';
-import { useVehicleQuery } from '../../../../features/vehiclesSlice';
+import { useDeleteVehicleMutations, useVehicleQuery } from '../../../../features/vehiclesSlice';
 import CalendarComponent from '../../datesHandle/DatesShow';
 import { getRandomImage } from '../../images';
 import { useDetails } from '../../../../context/LocalStorageContext';
 import { useAddBookingsMutation } from '../../../../features/bookingsSlice';
 import { FaEdit } from "react-icons/fa";
 import EditVehicle from './editVehicle';
+import { MdDeleteForever } from "react-icons/md";
+import { useToast } from '../../../../context/smallToast';
+
 
 
 const VehiclesDetails = () => {
@@ -22,8 +25,10 @@ const VehiclesDetails = () => {
   const [isValidBooking, setIsValidBooking] = useState<boolean>(false);
   const [addBooking,{isLoading:bookingLoading}] = useAddBookingsMutation()
   const { id } = useParams();
-
+  const navigator = useNavigate()
+  const {addToast} = useToast()
   const { data, isLoading, isSuccess, refetch} = useVehicleQuery({ id: id, details: true }, { pollingInterval: 5000 });
+  const [deleteVehicle,{data:deleteData,isLoading:deleteLoading,isSuccess:deleteSuccess}]=useDeleteVehicleMutations()
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -163,6 +168,25 @@ const VehiclesDetails = () => {
   };
 
 
+  const handleNavigate=()=>{
+    navigator('/admin/vehicles')
+
+  }
+  
+  useEffect(()=>{
+    if(deleteSuccess && deleteData.result == 'success'){
+      addToast('deleted successfully','success')
+      handleNavigate()
+    }
+    if(deleteData?.result === 'error'){
+      addToast('Error while deleting','error')
+    }
+  },[deleteData,deleteSuccess])
+
+  console.log('here')
+  console.log(vehicle.vehicle_id)
+  console.log('here')
+  
   return (
     <div>
       {isLoading ? (
@@ -173,10 +197,22 @@ const VehiclesDetails = () => {
           {vehicle.vehicleSpecification ? (
             <>
             {user?.role === 'admin' &&
+            <>
+            
             <button onClick={handleEditOpenModal}
                 className="fixed bottom-5 right-5 bg-yellow-600 text-black font-mono text-[21px] px-6 py-4 rounded-lg shadow-lg hover:bg-yellow-700 focus:outline-none"
-                    >
-                    <FaEdit size={30} className="text-grey-800"/></button>}
+                >
+                  
+                    <FaEdit size={30} className="text-grey-800"/></button>
+                    <button onClick={()=>deleteVehicle({id})}
+                    
+                className="fixed bottom-20 mb-5 right-5 bg-yellow-600 text-black font-mono text-[21px] px-6 py-4 rounded-lg shadow-lg hover:bg-yellow-700 focus:outline-none"
+                >
+                  {deleteLoading ?<span className="loading loading-spinner loading-xs"></span> :
+                    <MdDeleteForever size={30} className="text-grey-800"/>
+                  }
+                    </button>
+                      </>}
               <h3 className="text-center text-white p-2 font-mono text-[28px] font-bold">
                 {vehicle.vehicleSpecification.manufacturer} {vehicle.vehicleSpecification.model}
               </h3>

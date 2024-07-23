@@ -5,6 +5,7 @@ import EditLocation from "./EditLocation";
 import { MdModeEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
+import { useToast } from "../../../../context/smallToast";
 
 
 const Locations = () => {
@@ -13,7 +14,11 @@ const Locations = () => {
     const [showAddLocation, setShowAddLocation] = useState(false);
     const [showEditLocation, setShowEditLocation]= useState(false);
     const [locationEditing,setEditingLocation]= useState([])
-    const [deleteLocationDetails, { isLoading }] = useDeleteLocationsMutation();
+    const { addToast } = useToast();
+    const [deleteLocationDetails, { isLoading,data:deleteData,isSuccess:deleteSuccess }] = useDeleteLocationsMutation();
+    const [deletingRowId, setDeletingRowId] = useState<string | null>(null);
+
+
 
     useEffect(() => {
         if (isSuccess) {
@@ -26,18 +31,26 @@ const Locations = () => {
         setShowAddLocation(!showAddLocation);
     };
 
-    const handleDelete = async (id: number) => {
+    const handleDeleteClick = async (id: string) => {
+        setDeletingRowId(id);
         await deleteLocationDetails({ id });
-        if (!isLoading) {
-            refetch();
-        }
+        setDeletingRowId(null);
+        
     };
+    useEffect(()=>{
+        if(deleteSuccess&&deleteData?.result==='success'){
+            addToast('Location deleted successfully','success')
+            refetch()
+        }
+    },[deleteSuccess,deleteData])
 
     const handleEdit = (id: number)=>{
         setShowEditLocation(true);
         const location = locations.filter((location: any)=> Number(location?.id)===Number(id))
         setEditingLocation(location)
     }
+
+    useEffect(()=>{},[])
 
     return (
         <div>
@@ -62,8 +75,12 @@ const Locations = () => {
                                     <td>{location.address}</td>
                                     <td>{location.contact}</td>
                                     <td>
-                                        <button className="btn text-white font-normal mr-2 bg-blue-500 hover:bg-blue-900" onClick={()=>handleEdit(location.id)}><MdModeEdit size={22}/></button>
-                                        <button className="btn text-white font-normal ml-2 bg-red-500 hover:bg-red-900" onClick={() => handleDelete(location.id)}><MdDelete size={22}/></button>
+                                        <button className={`btn text-white font-normal mr-2 bg-blue-500 hover:bg-blue-900 ${isLoading && location.id == deletingRowId ?  'bg-gray-800 cursor-not-allowed' : null}`} onClick={()=>handleEdit(location.id)}><MdModeEdit size={22}/></button>
+                                        <button className="btn text-white font-normal ml-2 bg-red-500 hover:bg-red-900" onClick={() => handleDeleteClick(location.id)}>{deletingRowId === location.id && isLoading  ? (
+                        <span className="loading loading-spinner loading-sm"></span>
+                      ) : (
+                        <MdDelete size={21}/>
+                      )}</button>
                                     </td>
                                 </tr>
                             ))}
@@ -88,6 +105,7 @@ const Locations = () => {
             {
                 showEditLocation && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        
                         <EditLocation close={setShowEditLocation} values={locationEditing[0]} refetch={refetch} />
                     </div>
                 )

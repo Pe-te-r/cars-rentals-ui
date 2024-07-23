@@ -21,7 +21,7 @@ export const locationsAPi = createApi({
             url: details ? 'location?details=true' : 'location'
           }),
       }),
-      deleteLocations: builder.mutation<void, any>({
+      deleteLocations: builder.mutation<any, any>({
         query: ({ id }) => ({
           url: `location/${id}`,
           method: 'DELETE',
