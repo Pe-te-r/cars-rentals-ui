@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: 'dist', // Ensure this is 'dist'
+    outDir: 'build', // Ensure this is 'dist'
     rollupOptions: {
       output: {
         manualChunks: {
