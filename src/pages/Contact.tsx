@@ -25,7 +25,7 @@ const ContactPage = ({ isOpen, closeModal }: { isOpen: boolean; closeModal: () =
   };
   useEffect(()=>{
     if(isSuccess){
-      if(data['result'].trim()=='success'){
+      if(data['results'].trim()=='success'){
         setResponseToast({ message: `Support sent successfully!`, type:'success' });
         closeModal();
       }

@@ -28,8 +28,8 @@ export const supporthApi = createApi({
         body: data,
       }),
     }),
-    fetchAllSupport: builder.query<any[], void>({
-        query: ()=> 'support',
+    fetchAllSupport: builder.query<any, {detailed: boolean}>({
+        query: ({detailed})=> detailed? 'support?details=true' : 'support',
         
       }),
     fetchOneSupport: builder.query<any,string>({

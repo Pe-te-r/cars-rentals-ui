@@ -10,6 +10,7 @@ import Fleet from './Fleet/Fleet';
 import FleetDetails from './Fleet/FleetDetails';
 import UserProfile from '../user/profile/Profile';
 import Settings from '../user/UserSettings/settings';
+import Messages from './messages/messages';
 
 const Dashboard = () => {
   return (
@@ -28,6 +29,7 @@ const Dashboard = () => {
             <Route path="/locations" element={<Locations />} />
             <Route path="/fleets" element={<Fleet />} />
             <Route path="/fleets/:id" element={<FleetDetails />} />
+            <Route path='/messages' element={<Messages/>}/>
             <Route path='/settings' element={<Settings />} />
             <Route path='/profile' element={<UserProfile />} />
           </Routes>
