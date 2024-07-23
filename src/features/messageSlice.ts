@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { urlApi } from './url';
 // import { DeleteUserRequest, DeleteUserResponse, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse, UpdateUserRequest, UpdateUserResponse, User} from '../types/types';
 
 export const supporthApi = createApi({
   reducerPath: 'supportApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/',
+  baseQuery: fetchBaseQuery({ baseUrl: urlApi,
     prepareHeaders: (headers)=>{
       headers.set('Content-Type', 'application/json');
       const data = JSON.parse(localStorage.getItem('user')|| '{}')

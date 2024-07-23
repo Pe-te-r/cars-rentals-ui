@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getVehicleRequest, vehicleResponse } from "../types/types";
+import { urlApi } from "./url";
 
-const baseUrl = 'http://localhost:3000/api/'
-
+const baseUrl = urlApi
 export const vechiclesApi = createApi({
     reducerPath: 'vehicleAPi',
     baseQuery: fetchBaseQuery({baseUrl: baseUrl,

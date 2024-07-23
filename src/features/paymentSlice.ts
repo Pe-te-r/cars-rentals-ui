@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { urlApi } from './url';
 
 export const paymentApi = createApi({
   reducerPath: 'paymentApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/',
+  baseQuery: fetchBaseQuery({ baseUrl: urlApi,
     prepareHeaders: (headers)=>{
       headers.set('Content-Type', 'application/json');
       const data = JSON.parse(localStorage.getItem('user')|| '{}')
