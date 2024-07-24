@@ -51,6 +51,7 @@ export const authApi = createApi({
         body: data,
       }),
     }),
+    
     changeInfo: builder.mutation<any, any>({
       query: ({ id, ...data }) => ({
         url: 'change',
