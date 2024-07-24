@@ -76,9 +76,9 @@ const UserProfile = () => {
           </div>
         {/* btns logic */}
           <div className="w-full mt-3 mb-4 flex">
-            <div className="">
+            {/* <div className="">
               <button className="buttons btn hover:bg-yellow-800 text-black m-2" onClick={handleEdit} >Edit Details</button>
-            </div>
+            </div> */}
             <div className="">
               <button className="buttons btn hover:bg-yellow-800 text-black m-2" onClick={handleLogout}>Logout</button>
             </div>
