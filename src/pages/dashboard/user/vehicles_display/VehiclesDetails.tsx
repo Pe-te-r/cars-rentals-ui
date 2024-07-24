@@ -230,7 +230,7 @@ const VehiclesDetails = () => {
             <Link to={to} className="btn bg-blue-800 hover:bg-blue-900">Back</Link>
           {vehicle.vehicleSpecification ? (
             <>
-
+          
 
             {user?.role === 'admin' &&
             <>
@@ -313,6 +313,7 @@ const VehiclesDetails = () => {
                   )}
                 </div>
               </div>
+              
               </div>
             </>
           ) : (

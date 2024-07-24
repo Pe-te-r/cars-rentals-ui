@@ -45,6 +45,9 @@ const Navbar = () => {
               About Us
             </Link>
             <Link to="/service" className="text-gray-300 hover:bg-yellow-500 hover:text-gray-900 py-2 px-4 rounded">
+            <span>
+
+            </span>
               Services
             </Link>
             {user?.login && 

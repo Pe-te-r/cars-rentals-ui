@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { useGetBookingsQuery } from "../../../../features/bookingsSlice";
-import { MdModeEdit } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
 import { FaCircleInfo } from "react-icons/fa6";
 
 
@@ -64,12 +62,6 @@ const Bookings = () => {
                   <td>{booking.booking_date}</td>
                   <td>{booking.return_date}</td>
                   <td>
-                    <button className="text-white px-4 py-2 bg-blue-500 rounded hover:bg-blue-700">
-                      <MdModeEdit size={22}/>
-                    </button>
-                    <button className="text-white px-4 py-2 ml-2 bg-red-500 rounded hover:bg-red-700">
-                      <MdDelete size={22}/>
-                    </button>
                     <button className="text-white px-4 py-2 ml-2 bg-green-500 rounded hover:bg-green-700">
                       <FaCircleInfo size={22}/>
                     </button>

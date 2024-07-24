@@ -1,9 +1,19 @@
+import { Link } from 'react-router-dom';
 import image from '../assets/image6.jpeg'
 import Footer from '../components/Footer';
 import Navbar from '../components/NavBar';
 import { TypeAnimation } from 'react-type-animation';
+import { useDetails } from '../context/LocalStorageContext';
 
 const Home = () => {
+  const {user} = useDetails()
+
+  let to ='/';
+  if(user?.role === 'admin'){
+    to = '/admin'
+  }else if(user?.role === 'user'){
+    to = '/dashboard'
+  }
   return (
     <>
     <div>
@@ -31,8 +41,14 @@ const Home = () => {
       {/* Explore our wide range of luxury and economy vehicles for rent. Convenient, affordable, and tailored for your needs. */}
       </p>
       <div className='flex gap-3'>
-        <button className="btn btn-secondary">Explore more cars </button>
-        <button className="btn btn-primary">Reserve Your Ride Today!</button>
+        <button className="btn btn-secondary">
+            <Link to='vehicles/'>Explore more cars</Link>
+           </button>
+        {user &&
+          <button className="btn btn-primary">
+          <Link to={to}> Dashboard</Link>
+        </button>
+        }
       </div>
     </div>
   </div>

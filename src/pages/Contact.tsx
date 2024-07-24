@@ -4,6 +4,7 @@ import { useDetails } from "../context/LocalStorageContext";
 import { useCreateSupportMutation } from "../features/messageSlice";
 import { useAuth } from "../context/authContext";
 
+
 const ContactPage = ({ isOpen, closeModal }: { isOpen: boolean; closeModal: () => void }) => {
   const {user} =useDetails()
   const {setResponseToast} =useAuth()

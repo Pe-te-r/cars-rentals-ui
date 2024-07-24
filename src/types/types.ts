@@ -144,3 +144,8 @@ export interface Credentials {
       features: string,
       location: string,
   }
+
+  export interface fetchOneRequest{
+    id?:string,
+    details?: boolean
+  }

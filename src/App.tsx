@@ -9,15 +9,22 @@ import { DetailsProvider } from './context/LocalStorageContext';
 import UserDashboard from './pages/dashboard/user/UserDashBoard';
 import ProtectedRoute from './protectRoute';
 import { ToastProvider } from './context/smallToast';
+import VehiclesPhoto from './pages/dashboard/admin/vehicles/vehiclesPhoto';
+import VehiclesDetails from './pages/dashboard/user/vehicles_display/VehiclesDetails';
 
 
 
 const routes = createBrowserRouter([
   { path: '/', element: <Home /> },
   { path: 'service', element: <Service /> },
-  { path: 'about', element:(<ProtectedRoute element={ About }/>) },
+  { path: 'about', element:< About/>},
   { path: 'admin/*', element: (<ProtectedRoute element={Dashboard} role='admin'/>) },
   { path: 'dashboard/*', element:(<ProtectedRoute element={UserDashboard } role='user'/>) },
+  {path: 'vehicles',element: <VehiclesPhoto/>,
+    children:[
+      {path:':id',element: <VehiclesDetails/>},
+    ],
+  },
   { path: '*', element: <h1>Page Not Found</h1> },
 ]);
 // const isAuthenticated = true;

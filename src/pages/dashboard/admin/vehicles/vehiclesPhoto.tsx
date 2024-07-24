@@ -6,10 +6,13 @@ import { Link } from "react-router-dom";
 import AddVehicleForm from "./addVehicleForm";
 import { IoMdAddCircle } from "react-icons/io";
 import { useDetails } from "../../../../context/LocalStorageContext";
+import { useAuth } from "../../../../context/authContext";
+import AuthController from "../../../auth/authComponent";
 
 
 const VehiclesPhoto = () => {
     const {user}= useDetails()
+  const { openAuthModal } = useAuth();
     const [vehicles, setVehicles] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const { data, isSuccess, isLoading } = useVehicleDetailsQuery(undefined, { pollingInterval: 6000 });
@@ -29,6 +32,8 @@ const VehiclesPhoto = () => {
         setShowForm(false);
       };
 
+    //   const handleLogin = () => {}
+
     return (
         <div className="flex  flex-wrap gap-4 relative">
             {user?.role === 'admin' &&
@@ -36,6 +41,20 @@ const VehiclesPhoto = () => {
                 className="fixed bottom-5 right-5 bg-yellow-600 text-black font-mono text-[21px] px-6 py-4 rounded-full shadow-lg hover:bg-yellow-700 focus:outline-none"
                     onClick={handleAddVehicleClick}>
                     <IoMdAddCircle size={30} className="text-grey-800"/></button>}
+
+                    {!user &&
+                    <>
+            <button
+                className="fixed bottom-5 right-5 bg-yellow-600 text-black font-mono text-[21px] px-6 py-4 rounded-full shadow-lg hover:bg-yellow-700 focus:outline-none"
+                onClick={()=> openAuthModal(true)}>
+                    Login</button>
+                    <button
+                className="fixed bottom-5 left-5 bg-yellow-600 text-black font-mono text-[21px] px-6 py-4 rounded-full shadow-lg hover:bg-yellow-700 focus:outline-none"
+                >
+                    <Link to='/'>Back</Link>
+                    </button>
+                        </>
+                    }
             {isLoading ? (
                 <span className="loading fixed bottom-1/2 right-1/2 loading-ball loading-lg"></span>
             ) : (
@@ -69,6 +88,7 @@ const VehiclesPhoto = () => {
                 ))
             )}
             <AddVehicleForm close={handleCloseForm} display={showForm}/>
+            <AuthController/>
         </div>
     );
 };
