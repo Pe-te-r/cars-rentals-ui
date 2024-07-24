@@ -4,17 +4,17 @@ import { useDetails } from "../../../../context/LocalStorageContext";
 import { useFetchOneUserQuery } from "../../../../features/login_slice";
 import { useAuth } from "../../../../context/authContext";
 import CarProfile from "../../../../components/CarProfile";
-import { useState } from "react";
-import EditUserModal from "./EditUser";
+// import { useState } from "react";
+// import EditUserModal from "./EditUser";
 
 const UserProfile = () => {
   const navigate=useNavigate()
-  const [userDetails,setUserDetails] =useState<any>()
-  const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false)
+  // const [userDetails,setUserDetails] =useState<any>()
+  // const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false)
   const user = useDetails();
   const id = user.user?.id
   const {setResponseToast } = useAuth();
-  const { data,isSuccess,refetch ,isError,isLoading } = useFetchOneUserQuery({id:id,details:true},{refetchOnReconnect:true,pollingInterval:10000});
+  const { data,isSuccess ,isError,isLoading } = useFetchOneUserQuery({id:id,details:true},{refetchOnReconnect:true,pollingInterval:10000});
 
   if (isLoading) {
     return<span className="loading fixed top-1/2 left-1/2 loading-dots loading-lg"></span>;
@@ -28,26 +28,26 @@ const UserProfile = () => {
     setResponseToast({ message: `Sad to see you leave`, type: '' });
 
   }
-  const handleEditClick = () => {
-    setEditModalOpen(true);
-  };
+  // const handleEditClick = () => {
+  //   setEditModalOpen(true);
+  // };
 
-  const handleEdit=()=>{
-    const userInfo: any={
-      id: data['results'].id,
-      name: data['results'].name,
-      email: data['results'].email,
-      contact_phone: data['results'].contact_phone,
-    }
-    setUserDetails(userInfo)
-    handleEditClick()
+  // const handleEdit=()=>{
+  //   const userInfo: any={
+  //     id: data['results'].id,
+  //     name: data['results'].name,
+  //     email: data['results'].email,
+  //     contact_phone: data['results'].contact_phone,
+  //   }
+  //   setUserDetails(userInfo)
+  //   handleEditClick()
 
-  }
+  // }
 
 
-  const handleCloseModal = () => {
-    setEditModalOpen(false);
-  };
+  // const handleCloseModal = () => {
+  //   setEditModalOpen(false);
+  // };
   
   return (<>
   {isSuccess? 
@@ -124,7 +124,7 @@ const UserProfile = () => {
     </div>
 </div>
 :isError? <h2>Error occured</h2>: null}
-<EditUserModal refetch={refetch} isOpen={isEditModalOpen} onClose={handleCloseModal} userInfo={userDetails}/>
+{/* <EditUserModal refetch={refetch} isOpen={isEditModalOpen} onClose={handleCloseModal} userInfo={userDetails}/> */}
 </>
 );
 };
